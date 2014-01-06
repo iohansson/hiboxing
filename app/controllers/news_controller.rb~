@@ -1,0 +1,5 @@
+class NewsController < ApplicationController
+  def new
+    @new = New.new
+  end
+end

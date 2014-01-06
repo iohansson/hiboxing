@@ -1,0 +1,5 @@
+class ClubController < ApplicationController
+  def index
+    @news_items = NewsItem.last(3)
+  end
+end

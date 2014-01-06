@@ -1,0 +1,14 @@
+require 'spec_helper'
+
+describe NewsController do
+  describe "new" do
+    it "assigns new news" do
+      get :new
+      expect(assigns[:new]).to be_a(New)
+    end
+    it "renders new template" do
+      get :new
+      expect(response).to render_template(:new)
+    end
+  end
+end
