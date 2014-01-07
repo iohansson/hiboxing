@@ -1,5 +1,6 @@
 class NewsItemsController < ApplicationController
   def index
+    @news_items = NewsItem.paginate(page: params[:page], per_page: 10)
   end
   
   def new

@@ -1,7 +1,6 @@
 Given(/^I have following news:$/) do |table|
   table.hashes.each do |news_item|
-    n = NewsItem.new(title: news_item[:title], text: news_item[:text])
-    n.save
+    n = NewsItem.create(news_item)
   end
 end
 

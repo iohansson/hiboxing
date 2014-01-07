@@ -3,4 +3,6 @@ class NewsItem < ActiveRecord::Base
   
   validates :title, presence: true
   validates :text, presence: true
+  
+  self.per_page = 10
 end

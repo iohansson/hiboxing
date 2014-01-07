@@ -21,4 +21,10 @@ describe NewsItemsController do
       expect(response).to redirect_to(news_items_path)
     end
   end
+  describe "index" do
+    it "assigns news items" do
+      get :index
+      expect(assigns[:news_items]).not_to be_nil
+    end
+  end
 end

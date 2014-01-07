@@ -9,7 +9,7 @@ When(/^I go to the home page$/) do
 end
 
 Then(/^I should see (\d+) latest news$/) do |n|
-  NewsItem.last(n.to_i).each do |news_item|
+  NewsItem.order('updated_at').last(n.to_i).each do |news_item|
     expect(page).to have_content(news_item.title)
   end
 end
@@ -21,4 +21,14 @@ end
 Then(/^I should see "(.*?)" on club index page$/) do |title|
   visit '/'
   expect(page).to have_content(title)
+end
+
+When(/^I go to the news index page$/) do
+  visit '/news_items'
+end
+
+Then(/^I should see all news separated by pages$/) do
+  NewsItem.order('updated_at').last(10).each do |news_item|
+    expect(page).to have_content(news_item.title)
+  end
 end

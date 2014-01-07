@@ -19,3 +19,7 @@ Feature: News management
   Scenario: Adding news
     When admin adds a new "Sorry, guys, no training today"
     Then I should see "Sorry, guys, no training today" on club index page
+    
+  Scenario: News index by pages
+    When I go to the news index page
+    Then I should see all news separated by pages

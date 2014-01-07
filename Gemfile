@@ -28,6 +28,7 @@ group :development, :test do
   gem 'database_cleaner'
 end
 
+gem 'will_paginate'
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
