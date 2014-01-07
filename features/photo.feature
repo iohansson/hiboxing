@@ -16,3 +16,7 @@ Feature: Photo management
   Scenario: adding photo
     When I add image "test.jpg" with title "test"
     Then I should see image "test.jpg" with title "test" on the home page
+    
+  Scenario: photos index
+    When I go to the photos index page
+    Then I should see all photos

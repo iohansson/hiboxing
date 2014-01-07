@@ -1,6 +1,10 @@
 <div id="latest_news">
-  <%= render @news_items %>
+  <% cache ['latest_news', NewsItem.order('updated_at').last] do %>
+    <%= render @news_items %>
+  <% end %>
 </div>
 <div id="latest_photos">
-  <%= render @photos %>
+  <% cache ['latest_photos', Photo.last] do %>
+    <%= render @photos %>
+  <% end %>
 </div>

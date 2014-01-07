@@ -51,7 +51,5 @@ end
 
 Then(/^I should see image "(.*?)" with title "(.*?)" on the home page$/) do |file, title|
   visit '/'
-  page.find("img").all.detect do |img|
-    img[:src].include?(file)
-  end.should be_present
+  expect(find("img")[:src]).to have_content(file)
 end

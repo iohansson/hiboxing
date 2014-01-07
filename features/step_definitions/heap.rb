@@ -53,3 +53,13 @@ Then(/^I should see image "(.*?)" with title "(.*?)" on the home page$/) do |fil
   visit '/'
   expect(find("img")[:src]).to have_content(file)
 end
+
+When(/^I go to the photos index page$/) do
+  visit '/photos'
+end
+
+Then(/^I should see all photos$/) do
+  Photo.all.each do |photo|
+    expect(page).to have_xpath("//img[@alt=\"#{photo.title}\"]")
+  end
+end
