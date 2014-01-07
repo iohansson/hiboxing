@@ -1,5 +1,8 @@
 Hiboxing::Application.routes.draw do
 
+  resources :photos
+
+
   resources :news_items
 
 

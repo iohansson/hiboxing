@@ -1,3 +1,7 @@
+def test_files_dir
+  'features/test_files/'
+end
+
 def log_in
   FactoryGirl.create(:user, name: 'admin', password: 'admin', password_confirmation: 'admin')
   visit '/admin'
@@ -11,4 +15,11 @@ def add_news_item(params)
   fill_in 'Заголовок', with: params[:title]
   fill_in 'Текст', with: "Текст новости"
   click_button 'Опубликовать'
+end
+
+def add_photo(file,title)
+  visit new_photo_path
+  fill_in 'Заголовок', with: title
+  attach_file 'Файл', test_files_dir+file
+  click_button 'Добавить'
 end

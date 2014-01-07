@@ -28,7 +28,9 @@ group :development, :test do
   gem 'database_cleaner'
 end
 
-gem 'will-paginate'
+gem 'will_paginate'
+gem 'carrierwave'
+gem 'minimagick'
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password

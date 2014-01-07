@@ -29,6 +29,8 @@ group :development, :test do
 end
 
 gem 'will_paginate'
+gem 'carrierwave'
+gem 'mini_magick'
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
