@@ -1,9 +1,22 @@
 Hiboxing::Application.routes.draw do
+  namespace :admin do
+    get '' => 'admin#index', as: "/"
+    resources :news_items
+  end
+  
+  controller :session do
+    get 'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+  end
+  
+  resources :users
+
 
   resources :photos
 
 
-  resources :news_items
+  resources :news_items, only: [:index]
 
 
   controller :club do

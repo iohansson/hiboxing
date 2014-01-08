@@ -1,0 +1,9 @@
+<h2>Новости</h2>
+
+<%= link_to 'Добавить новость', new_admin_news_items_path %>
+
+<div id="news_items">
+  <%= render @news_items %>
+</div>
+
+<%= will_paginate @news_items %>

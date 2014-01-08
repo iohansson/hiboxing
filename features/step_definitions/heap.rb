@@ -15,6 +15,7 @@ Then(/^I should see (\d+) latest news$/) do |n|
 end
 
 When(/^admin adds a new "(.*?)"$/) do |title|
+  login
   add_news_item(title: title)
 end
 
@@ -62,4 +63,17 @@ Then(/^I should see all photos$/) do
   Photo.all.each do |photo|
     expect(page).to have_xpath("//img[@alt=\"#{photo.title}\"]")
   end
+end
+
+When(/^I login$/) do
+  login
+end
+
+Then(/^I should see administration area$/) do
+  expect(current_path).to eq(admin_path)
+  within 'h1' do
+    expect(page).to have_content('Управление сайтом')
+  end
+  expect(page).to have_content('Новости')
+  expect(page).to have_content('Фото')
 end

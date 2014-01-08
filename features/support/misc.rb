@@ -2,16 +2,16 @@ def test_files_dir
   'features/test_files/'
 end
 
-def log_in
-  FactoryGirl.create(:user, name: 'admin', password: 'admin', password_confirmation: 'admin')
+def login
+  u = FactoryGirl.create(:user)
   visit '/admin'
-  fill_in 'Логин', with: 'admin'
-  fill_in 'Пароль', with: 'admin'
+  fill_in 'Логин', with: u.name
+  fill_in 'Пароль', with: "pass"
   click_button 'Войти'
 end
 
 def add_news_item(params)
-  visit new_news_item_path
+  visit new_admin_news_item_path
   fill_in 'Заголовок', with: params[:title]
   fill_in 'Текст', with: "Текст новости"
   click_button 'Опубликовать'
