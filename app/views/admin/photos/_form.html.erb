@@ -1,0 +1,25 @@
+<div id="photo_form">
+  <%= form_for [:admin,@photo], html: { multipart: true } do |f| %>
+    <% if @photo.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@photo.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+        <ul>
+        <% @photo.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= f.label :title, 'Заголовок' %>
+    <%= f.text_field :title %>
+    
+    <%= f.label :description, 'Описание' %>
+    <%= f.text_area :description %>
+    
+    <%= f.label :image, 'Файл' %>
+    <%= f.file_field :image %>
+    
+    <%= f.submit 'Сохранить' %>
+  <% end %>
+</div>

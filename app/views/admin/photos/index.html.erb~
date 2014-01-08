@@ -1,0 +1,6 @@
+<h2>Фотографии</h2>
+
+<div id="photos">
+  <%= link_to 'Добавить фото' %>
+  <%= render @photos %>
+</div>

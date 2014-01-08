@@ -1,16 +1,5 @@
 class PhotosController < ApplicationController
-
-  def new
-    @photo = Photo.new
+  def index
+    @photos = Photos.all
   end
-  
-  def create
-    @photo = Photo.new(params[:photo])
-    if @photo.save
-      redirect_to photos_path
-    else
-      render :new
-    end
-  end
-  
 end

@@ -1,6 +1,4 @@
 Hiboxing::Application.routes.draw do
-  get "news_items/index"
-
   namespace :admin do
     get '' => 'admin#index', as: "/"
     resources :news_items

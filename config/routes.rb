@@ -1,7 +1,10 @@
 Hiboxing::Application.routes.draw do
+  get "photos/index"
+
   namespace :admin do
     get '' => 'admin#index', as: "/"
     resources :news_items
+    resources :photos
   end
   
   controller :session do
