@@ -5,5 +5,9 @@ FactoryGirl.define do
     sequence(:name) { |n| "user#{n}" }
     password "pass"
     password_confirmation "pass"
+    
+    factory :invalid_user do
+      name nil
+    end
   end
 end

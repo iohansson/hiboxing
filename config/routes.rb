@@ -1,10 +1,10 @@
 Hiboxing::Application.routes.draw do
-  get "photos/index"
-
   namespace :admin do
     get '' => 'admin#index', as: "/"
     resources :news_items
     resources :photos
+    resources :users
+    resources :pages
   end
   
   controller :session do
@@ -13,12 +13,7 @@ Hiboxing::Application.routes.draw do
     delete 'logout' => :destroy
   end
   
-  resources :users
-
-
-  resources :photos
-
-
+  resources :photos, only: [:index]
   resources :news_items, only: [:index]
 
 

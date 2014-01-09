@@ -4,7 +4,7 @@ describe Admin::NewsItemsController do
   include LoginMacros
   before do
     user = FactoryGirl.create(:user)
-    sign_in user
+    set_user_session user
   end
   describe "new" do
     it "assigns new news" do

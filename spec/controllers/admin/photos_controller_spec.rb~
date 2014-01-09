@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Admin::PhotosController do
   include LoginMacros
-  before :each do
+  before do
     user = FactoryGirl.create(:user)
-    sign_in user
+    set_user_session user
   end
   describe '#GET new' do
     it "responds with success" do

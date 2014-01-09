@@ -3,6 +3,10 @@ module LoginMacros
     session[:user_id] = user.id
   end
   
+  def unset_user_session
+    session[:user_id] = nil
+  end
+  
   def sign_in(user)
     visit login_path
     fill_in 'Логин', with: user.name

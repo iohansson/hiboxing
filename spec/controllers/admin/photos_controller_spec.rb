@@ -2,8 +2,11 @@ require 'spec_helper'
 
 describe Admin::PhotosController do
   include LoginMacros
-  before :each do
-    user = FactoryGirl.create(:user)
+  before do
+    user = User.find_by_name('specific')
+    if !user
+      user = FactoryGirl.create(:user, name: 'specific')
+    end
     set_user_session user
   end
   describe '#GET new' do

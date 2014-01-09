@@ -2,8 +2,11 @@ include LoginMacros
 include AttachMacros
 
 describe "administration" do
-  before :each do
-    user = FactoryGirl.create(:user)
+  before do
+    user = User.find_by_name('specific')
+    if !user
+      user = FactoryGirl.create(:user, name: 'specific')
+    end
     sign_in user
   end
 
@@ -88,5 +91,56 @@ describe "administration" do
       }.to change{Photo.count}.by(-1)
       expect(current_path).to eq(admin_photos_path)
     end
+  end
+  
+  describe "user management" do
+    it "adds user" do
+      click_link 'Пользователи'
+      expect(current_path).to eq(admin_users_path)
+      expect{
+        click_link 'Добавить пользователя'
+        fill_in 'Логин', with: 'iohansson'
+        fill_in 'Пароль', with: 'secret'
+        fill_in 'Пароль еще раз', with: 'secret'
+        click_button 'Сохранить'
+      }.to change{User.count}.by(1)
+      expect(current_path).to eq(admin_users_path)
+      expect(page).to have_content('iohansson')
+    end
+    it "edits user" do
+      user = FactoryGirl.create(:user, name: 'Edit me')
+      click_link 'Пользователи'
+      expect(current_path).to eq(admin_users_path)
+      expect{
+        within "div#user_#{user.id}" do
+          click_link 'Редактировать'
+        end
+        fill_in 'Пароль', with: 'new'
+        fill_in 'Пароль еще раз', with: 'new'
+        click_button 'Сохранить'
+      }.to change{User.find(user.id).password_digest}
+      expect(current_path).to eq(admin_users_path)
+    end
+  end
+  
+  describe "static pages management" do
+    it "adds page" do
+      click_link 'Страницы'
+      expect(current_path).to eq(admin_pages_path)
+      expect{
+        click_link 'Добавить страницу'
+        fill_in 'Заголовок', with: 'О клубе'
+        fill_in 'Содержание', with: '<b>Хорошо!</b>'
+        fill_in 'Порядок', with: 1
+        check 'Опубликована'
+        click_button 'Сохранить'
+      }.to change{Page.count}.by(1)
+      expect(current_path).to eq(admin_pages_path)
+      expect(page).to have_content('О клубе')
+    end
+  end
+  
+  describe "group management" do
+    
   end
 end

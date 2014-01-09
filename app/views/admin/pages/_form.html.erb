@@ -1,0 +1,28 @@
+<div id="page_form" class="form">
+  <%= form_for([:admin,@page]) do |f| %>
+    <% if @page.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@page.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+        <ul>
+        <% @page.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= f.label :title, 'Заголовок' %>
+    <%= f.text_field :title %>
+    
+    <%= f.label :content, 'Содержание' %>
+    <%= f.text_area :content %>
+    
+    <%= f.label :sort_order, 'Порядок' %>
+    <%= f.text_field :sort_order %>
+    
+    <%= f.label :is_published, 'Опубликована' %>
+    <%= f.check_box :is_published %>
+    
+    <%= f.submit 'Сохранить' %>
+  <% end %>
+</div>

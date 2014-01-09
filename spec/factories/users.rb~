@@ -2,7 +2,13 @@
 
 FactoryGirl.define do
   factory :user do
-    name "MyString"
-    password_digest "MyString"
+    sequence(:name) { |n| "user#{n}" }
+    name name
+    password "pass"
+    password_confirmation "pass"
+    
+    factory :invalid_user do
+      name nil
+    end
   end
 end
