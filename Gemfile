@@ -22,6 +22,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'selenium-webdriver'
   gem 'cucumber-rails', require: false
   gem 'cucumber-rails-training-wheels'
   gem 'factory_girl_rails'
@@ -32,6 +33,8 @@ gem 'will_paginate'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'tod'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'

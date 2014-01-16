@@ -1,12 +1,12 @@
 Hiboxing::Application.routes.draw do
-  resources :pages
-
-
   namespace :admin do
     get '' => 'admin#index', as: "/"
     resources :news_items
     resources :photos
     resources :users
+    resources :pages
+    resources :groups
+    resources :events
   end
   
   controller :session do

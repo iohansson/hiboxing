@@ -1,0 +1,55 @@
+.message {
+  position: absolute;
+  z-index: 20;
+  top: 45%;
+  left: 45%;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid rgba(0,0,0,.5);
+}
+.group {
+  width: 90px;
+  height: 30px;
+  background: rgba(255,255,0,.5);
+  float: right;
+}
+.event {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.schedule {
+  float: left;
+  width: 80%;
+
+  .day_names {
+    width: 100%;
+    padding-left: 90px;
+  }
+  .day_name {
+    float:left;
+    width: 90px;
+  }
+  .time_names {
+    float: left;
+    
+    .time_name {
+      height: 30px;
+      width: 90px;
+    }
+  }
+  .day {
+    float: left;
+    border-right: 1px solid rgba(0,0,0,.5);
+  }
+  .period {
+    width: 90px;
+    height: 30px;
+    background: #ccc;
+    position: relative;
+  }
+  .day div.period:nth-child(even) {
+    background: #333;
+  }
+}

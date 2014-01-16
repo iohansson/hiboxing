@@ -5,6 +5,8 @@ Hiboxing::Application.routes.draw do
     resources :photos
     resources :users
     resources :pages
+    resources :groups
+    resources :events
   end
   
   controller :session do

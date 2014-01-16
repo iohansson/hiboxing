@@ -1,0 +1,13 @@
+Schedule =
+  setup: ()->
+    $('.draggable').draggable()
+    $('.droppable').droppable()
+    $('.droppable').on('drop',@alertYo)
+  receiveGroup: (from,to)->
+    alert('dropped!')
+    false
+  alertYo: ()->
+    alert('yo!')
+    
+$ ->
+  Schedule.setup()

@@ -3,11 +3,7 @@ include AttachMacros
 
 describe "administration" do
   before do
-    user = User.find_by_name('specific')
-    if !user
-      user = FactoryGirl.create(:user, name: 'specific')
-    end
-    sign_in user
+    create_user_and_sign_in_via_form
   end
 
   describe "news management" do
@@ -139,4 +135,92 @@ describe "administration" do
       expect(page).to have_content('О клубе')
     end
   end
-end
+  
+  describe "group management" do
+    it "adds groups" do
+      click_link 'Группы'
+      expect(current_path).to eq(admin_groups_path)
+      expect{
+        click_link 'Добавить группу'
+        fill_in 'Название', with: 'VIP'
+        click_button 'Добавить'
+      }.to change{Group.count}.by(1)
+      expect(current_path).to eq(admin_groups_path)
+      expect(page).to have_content('VIP')
+    end
+    it "deletes groups" do
+      group = FactoryGirl.create(:group, name: 'Удали меня')
+      click_link 'Группы'
+      expect(current_path).to eq(admin_groups_path)
+      expect{
+        within "div#group-false-0-0-0-#{group.id}" do
+          click_link 'Удалить'
+        end
+      }.to change{Group.count}.by(-1)
+      expect(current_path).to eq(admin_groups_path)
+      expect(page).not_to have_content('Удали меня')
+    end
+  end
+  describe "schedule event management" do
+    before do
+      @group = FactoryGirl.create(:group, name: 'VIP')
+    end
+    it "adds events", js: true do
+      visit admin_path
+      click_link 'Расписание'
+      expect(current_path).to eq(admin_events_path)
+      expect{
+        #here comes js dragging group div to schedule scheme div and sending xhr after drop with params start time, finish time, day and group
+        #first find what to drag
+        draggable = find("#group-false-0-0-0-#{@group.id}")
+        #then where to drop
+        droppable = find("#period-1-540")
+        #drag and drop
+        draggable.drag_to(droppable)
+        #find event placed on grid
+        within "#event-false-1-540-30-#{@group.id}" do
+          #submit changes
+          find('.submit-button').click
+        end
+        #wait for a flash message
+        expect(page).to have_content('Событие сохранено') 
+      }.to change{Event.count}.by(1)
+    end
+    it "deletes event", js: true do
+      @event = FactoryGirl.create(:event, {
+        group_id: @group.id,
+        start: TimeOfDay.new(12),
+        stop: TimeOfDay.new(14),
+        day: 3
+      })
+      visit admin_path
+      click_link 'Расписание'
+      expect{
+        within "#event-#{@event.id}-3-720-120-#{@group.id}" do
+          find('.remove-button').click
+        end
+        expect(page).to have_content('Событие удалено')
+      }.to change{Event.count}.by(-1)
+    end
+    it "updates event", js: true do
+      @event = FactoryGirl.create(:event, {
+        group_id: @group.id,
+        start: TimeOfDay.new(12),
+        stop: TimeOfDay.new(14),
+        day: 3
+      })
+      visit admin_path
+      click_link 'Расписание'
+      expect{
+        draggable = find("#event-#{@event.id}-3-720-120-#{@group.id}")
+        droppable = find("#period-1-540")
+        draggable.drag_to(droppable)
+        within "#event-#{@event.id}-1-540-120-#{@group.id}" do
+          find('.submit-button').click
+        end
+        #wait for a flash message
+        expect(page).to have_content('Событие сохранено')
+      }.to change{Event.last}
+    end
+  end
+end 

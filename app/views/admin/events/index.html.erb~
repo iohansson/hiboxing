@@ -1,0 +1,5 @@
+<h1>Управление расписанием</h1>
+
+<%= render 'schedule' %>
+
+<%= render @groups %>

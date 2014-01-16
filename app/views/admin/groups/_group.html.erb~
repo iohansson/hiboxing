@@ -1,0 +1,4 @@
+<div id="group_<%= group.id %>" class="group draggable">
+  <%= group.name %>
+  <%= link_to 'Удалить', admin_group_path(group), method: :delete %>
+</div>

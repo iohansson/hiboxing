@@ -13,4 +13,16 @@ module LoginMacros
     fill_in 'Пароль', with: "pass"
     click_button 'Войти'
   end
+  
+  def create_user
+    User.find_by_name('specific') || FactoryGirl.create(:user, name: 'specific') || User.create(name: 'specific', password: 'pass', password_confirmation: 'pass')
+  end
+  
+  def create_user_and_sign_in
+    set_user_session create_user
+  end
+  
+  def create_user_and_sign_in_via_form
+    sign_in create_user
+  end
 end

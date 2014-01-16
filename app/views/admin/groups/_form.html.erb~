@@ -1,0 +1,10 @@
+<div id="group_form">
+  <%= form_for([:admin,@group]) do |f| %>
+    <%= render partial: 'shared/form_errors', locals: { object: @group } %>
+    
+    <%= f.label :name, 'Название' %>
+    <%= f.text_field :name %>
+    
+    <%= f.submit 'Сохранить' %>
+  <% end %>
+</div>
