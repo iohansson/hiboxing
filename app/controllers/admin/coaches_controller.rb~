@@ -1,0 +1,9 @@
+class Admin::CoachesController < ApplicationController
+  def index
+    @coaches = Coach.all
+  end
+  
+  def new
+    @coach = Coach.new
+  end
+end

@@ -1,0 +1,12 @@
+<%= form_for [:admin,@coach] do |f| %>
+  <%= f.label :name, 'Имя' %>
+  <%= f.text_field :name %>
+  
+  <%= f.label :description, 'Текст' %>
+  <%= f.text_area :description %>
+  
+  <%= f.label :image, 'Фото' %>
+  <%= f.file_field :image %>
+  
+  <%= f.submit 'Сохранить' %>
+<% end %>

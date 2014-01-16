@@ -7,6 +7,7 @@ Hiboxing::Application.routes.draw do
     resources :pages
     resources :groups
     resources :events
+    resources :coaches
   end
   
   controller :session do

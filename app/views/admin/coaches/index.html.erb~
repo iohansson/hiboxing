@@ -1,0 +1,1 @@
+<%= link_to 'Добавить', new_admin_coach_path %>

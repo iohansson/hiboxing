@@ -223,4 +223,27 @@ describe "administration" do
       }.not_to change{Event.count}
     end
   end
+  describe "coaches management", focus: true do
+    it "adds coaches" do
+      visit admin_path
+      click_link 'Тренеры'
+      expect{
+        click_link 'Добавить'
+        fill_in 'Имя', with: 'Мохаммед Али'
+        fill_in 'Текст', with: 'Лучший из лучших'
+        attach_file 'Фото', test_files_dir+"test.jpg"
+        click_button 'Сохранить'
+      }.to change{Coach.count}.by(1)
+      expect(current_path).to eq(admin_coaches_path)
+      expect(page).to have_content('Мохаммед Али')
+    end
+    it "updates coaches" do
+    end
+    it "deletes coaches" do
+    end
+  end
+  describe "contacts management" do
+    it "manages phone" do
+    end
+  end
 end 

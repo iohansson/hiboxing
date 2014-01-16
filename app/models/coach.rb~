@@ -1,0 +1,5 @@
+class Coach < ActiveRecord::Base
+  attr_accessible :description, :image, :name
+  
+  validates :name, presence: true
+end
