@@ -238,8 +238,28 @@ describe "administration" do
       expect(page).to have_content('Мохаммед Али')
     end
     it "updates coaches" do
+      coach = FactoryGirl.create(:coach, name: 'Неа')
+      visit admin_path
+      click_link 'Тренеры'
+      expect{
+        within "div.coach##{coach.id}" do
+          click_link 'Редактировать'
+        end
+        fill_in 'Имя', with: 'Ага'
+        click_button 'Сохранить'
+      }.to change{Coach.find(coach.id).name}
     end
     it "deletes coaches" do
+      coach = FactoryGirl.create(:coach, name: 'Удали меня')
+      visit admin_path
+      click_link 'Тренеры'
+      expect{
+        within "div.coach##{coach.id}" do
+          click_link 'Удалить'
+        end
+      }.to change{Coach.count}.by(-1)
+      expect(current_path).to eq(admin_coaches_path)
+      expect(page).not_to have_content('Удали меня')
     end
   end
   describe "contacts management" do

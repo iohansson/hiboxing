@@ -1,3 +1,5 @@
-<div class="coach">
+<div class="coach" id="<%= coach.id %>">
   <%= coach.name %>
+  <%= link_to 'Редактировать', edit_admin_coach_path(coach.id) %>
+  <%= link_to 'Удалить', admin_coach_path(coach.id), method: :delete %>
 </div>

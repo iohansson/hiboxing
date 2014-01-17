@@ -1,0 +1,4 @@
+<div class="coach" id="<%= coach.id %>">
+  <%= coach.name %>
+  <%= link_to 'Редактировать', edit_admin_coach_path(coach.id) %>
+</div>

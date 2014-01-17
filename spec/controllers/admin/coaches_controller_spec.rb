@@ -35,4 +35,18 @@ describe Admin::CoachesController do
       expect(response).to render_template(:new)
     end
   end
+  describe 'GET edit' do
+    it "finds and assigns coach" do
+      coach = FactoryGirl.create(:coach)
+      get :edit, id: coach.id
+      expect(assigns[:coach]).to eq(coach)
+    end
+  end
+  describe 'DELETE destroy' do
+    it "redirects to index" do
+      coach = FactoryGirl.create(:coach)
+      delete :destroy, id: coach.id
+      expect(response).to redirect_to(admin_coaches_url)
+    end
+  end
 end

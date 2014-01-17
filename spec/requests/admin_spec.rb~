@@ -223,7 +223,7 @@ describe "administration" do
       }.not_to change{Event.count}
     end
   end
-  describe "coaches management" do
+  describe "coaches management", focus: true do
     it "adds coaches" do
       visit admin_path
       click_link 'Тренеры'
@@ -238,8 +238,26 @@ describe "administration" do
       expect(page).to have_content('Мохаммед Али')
     end
     it "updates coaches" do
+      coach = FactoryGirl.create(:coach, name: 'Неа')
+      visit admin_path
+      click_link 'Тренеры'
+      expect{
+        within "div.coach##{coach.id}" do
+          click_link 'Редактировать'
+        end
+        fill_in 'Имя', with: 'Ага'
+        click_button 'Сохранить'
+      }.to change{Coach.find(coach.id).name}
     end
     it "deletes coaches" do
+      coach = FactoryGirl.create(:coach, name: 'Удали меня')
+      visit admin_path
+      click_link 'Тренеры'
+      expect{
+        within "div.coach##{coach.id}" do
+          click_link 'Удалить'
+        end
+      }.to change{Coach.count}.by(-1)
     end
   end
   describe "contacts management" do
