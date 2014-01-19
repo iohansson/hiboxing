@@ -4,10 +4,11 @@ Hiboxing::Application.routes.draw do
     resources :news_items
     resources :photos
     resources :users
-    resources :pages
     resources :groups
     resources :events
     resources :coaches
+    resources :gyms
+    resources :gym_images, only: [:create, :index, :destroy]
   end
   
   controller :session do
@@ -18,7 +19,12 @@ Hiboxing::Application.routes.draw do
   
   resources :photos, only: [:index]
   resources :news_items, only: [:index]
-
+  resources :gyms, only: [:index]
+  resources :coaches, only: [:index]
+  controller :pages do
+    get :about
+    get :school
+  end
 
   controller :club do
     get :index

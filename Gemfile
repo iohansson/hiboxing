@@ -27,6 +27,7 @@ group :development, :test do
   gem 'cucumber-rails-training-wheels'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+  gem 'nifty-generators'
 end
 
 gem 'will_paginate'
@@ -35,6 +36,8 @@ gem 'mini_magick'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'tod'
+gem 'geocoder'
+gem 'nested_form'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
@@ -50,3 +53,5 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use debugger
 # gem 'debugger'
+
+gem "mocha", :group => :test

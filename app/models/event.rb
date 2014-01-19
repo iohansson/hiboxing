@@ -22,6 +22,14 @@ class Event < ActiveRecord::Base
     self.group.name
   end
   
+  def price
+    self.group.price
+  end
+  
+  def description
+    self.group.description
+  end
+  
   def js_id
     [
       'event',

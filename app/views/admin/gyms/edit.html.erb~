@@ -1,0 +1,15 @@
+<% title @gym.name %>
+
+<%= render 'form' %>
+
+<div class="images">
+  <% @gym.images.each do |image| %>
+    <%= image_tag image.url %>
+  <% end %>
+  <%= render 'image_form' %>
+</div>
+
+<p>
+  <%= link_to "Показать", admin_gym_path(@gym) %> |
+  <%= link_to "Все залы", admin_gyms_path %>
+</p>

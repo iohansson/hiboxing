@@ -12,6 +12,12 @@ class Event < ActiveRecord::Base
     Event.where('day = :day AND start <= :time AND stop >= :time',{day: day, time: Time.now.to_time_of_day.to_s})
   end
   
+  def self.next
+    day = Time.now.wday
+    day = 7 if day == 0
+    Event.where('day = :day AND start >= :time',{day: day, time: Time.now.to_time_of_day.to_s}).order(:start).first
+  end
+  
   def name
     self.group.name
   end

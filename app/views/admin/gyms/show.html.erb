@@ -1,0 +1,34 @@
+<% title "Gym" %>
+
+<p>
+  <strong>Название:</strong>
+  <%= @gym.name %>
+</p>
+<p>
+  <strong>Адрес:</strong>
+  <%= @gym.address %>
+</p>
+<p>
+  <strong>Телефон:</strong>
+  <%= @gym.phone %>
+</p>
+<p>
+  <strong>Почта:</strong>
+  <%= @gym.email %>
+</p>
+<p>
+  <strong>Открытие:</strong>
+  <%= @gym.opens_at %>
+</p>
+<p>
+  <strong>Закрытие:</strong>
+  <%= @gym.closes_at %>
+</p>
+
+<%= image_tag "http://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x300&sensor=false&markers=#{@gym.latitude}%2C#{@gym.longitude}" %>
+ 
+<p>
+  <%= link_to "Изменить", edit_admin_gym_path(@gym) %> |
+  <%= link_to "Удалить", admin_gym_path(@gym), :confirm => 'Уверены?', :method => :delete %> |
+  <%= link_to "Все залы", admin_gyms_path %>
+</p>

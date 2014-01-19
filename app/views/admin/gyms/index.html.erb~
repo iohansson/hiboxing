@@ -1,0 +1,27 @@
+<% title "Залы" %>
+
+<table>
+  <tr>
+    <th>Название</th>
+    <th>Адрес</th>
+    <th>Телефон</th>
+    <th>Почта</th>
+    <th>Открытие</th>
+    <th>Закрытие</th>
+  </tr>
+  <% for gym in @gyms %>
+    <tr>
+      <td><%= gym.name %></td>
+      <td><%= gym.address %></td>
+      <td><%= gym.phone %></td>
+      <td><%= gym.email %></td>
+      <td><%= gym.opens_at %></td>
+      <td><%= gym.closes_at %></td>
+      <td><%= link_to "Показать", admin_gym_path(gym) %></td>
+      <td><%= link_to "Изменить", edit_admin_gym_path(gym) %></td>
+      <td><%= link_to "Удалить", gym, :confirm => 'Уверены?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "Добавить", new_admin_gym_path %></p>

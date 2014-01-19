@@ -1,4 +1,5 @@
 class Admin::CoachesController < ApplicationController
+  before_filter :authorize
   before_filter :set_coach, only: [:edit,:update,:destroy]
   def index
     @coaches = Coach.all
@@ -30,6 +31,8 @@ class Admin::CoachesController < ApplicationController
   end
   
   def destroy
+    @coach.destroy
+    redirect_to admin_coaches_url
   end
   
   protected

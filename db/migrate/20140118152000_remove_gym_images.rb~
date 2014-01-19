@@ -1,0 +1,5 @@
+class CreateGymImages < ActiveRecord::Migration
+  def change
+    drop_table :gym_images
+  end
+end

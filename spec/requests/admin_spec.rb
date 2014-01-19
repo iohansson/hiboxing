@@ -119,23 +119,6 @@ describe "administration" do
     end
   end
   
-  describe "static pages management" do
-    it "adds page" do
-      click_link 'Страницы'
-      expect(current_path).to eq(admin_pages_path)
-      expect{
-        click_link 'Добавить страницу'
-        fill_in 'Заголовок', with: 'О клубе'
-        fill_in 'Содержание', with: '<b>Хорошо!</b>'
-        fill_in 'Порядок', with: 1
-        check 'Опубликована'
-        click_button 'Сохранить'
-      }.to change{Page.count}.by(1)
-      expect(current_path).to eq(admin_pages_path)
-      expect(page).to have_content('О клубе')
-    end
-  end
-  
   describe "group management" do
     it "adds groups" do
       click_link 'Группы'
@@ -223,7 +206,7 @@ describe "administration" do
       }.not_to change{Event.count}
     end
   end
-  describe "coaches management", focus: true do
+  describe "coaches management" do
     it "adds coaches" do
       visit admin_path
       click_link 'Тренеры'
@@ -262,8 +245,21 @@ describe "administration" do
       expect(page).not_to have_content('Удали меня')
     end
   end
-  describe "contacts management" do
-    it "manages phone" do
+  describe "gyms management", focus: true do
+    it "adds gym and shows it with map" do
+      mock_geocoding!
+      click_link 'Залы'
+      expect(current_path).to eq(admin_gyms_path)
+      expect{
+        click_link 'Добавить'
+        fill_in 'Название', with: 'Rocky Balboa Gym'
+        fill_in 'Адрес', with: 'г. Краснодар, ул. Школьная, 5'
+        fill_in 'Телефон', with: '+7(962)8767884'
+        fill_in 'Почта', with: 'balboa@hiboxing.ru'
+        click_button 'Сохранить'
+      }.to change{Gym.count}.by(1)
+      expect(current_path).to eq(admin_gym_path(Gym.last))
+      expect(page).to have_xpath("//img[@src[contains(.,'#{Gym.last.latitude}')]]")
     end
   end
 end 

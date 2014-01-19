@@ -1,5 +1,26 @@
 require 'spec_helper'
 
 describe Group do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "Validation" do
+    subject { FactoryGirl.build(:group, name: 'unique') }
+    it "must have unique name" do
+      subject.name = nil
+      expect(subject).not_to be_valid
+      expect(subject.errors[:name]).not_to be_nil
+      subject.name = 'unique'
+      expect(subject).to be_valid
+      FactoryGirl.create(:group, name: 'unique')
+      expect(subject).not_to be_valid
+      expect(subject.errors[:name]).not_to be_nil
+    end  
+  end
+  context "price" do
+    subject { FactoryGirl.build(:group) }
+    it "returns 'free' if price not specified" do
+      subject.price = nil
+      expect(subject.price).to eq('Бесплатно')
+      subject.price = 1200
+      expect(subject.price).to eq(1200)
+    end
+  end
 end

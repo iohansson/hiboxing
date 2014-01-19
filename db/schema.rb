@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140116210714) do
+ActiveRecord::Schema.define(:version => 20140119142917) do
 
   create_table "coaches", :force => true do |t|
     t.string   "name"
@@ -32,8 +32,31 @@ ActiveRecord::Schema.define(:version => 20140116210714) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "price"
+    t.string   "description"
+  end
+
+  create_table "gyms", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "email"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.time     "opens_at"
+    t.time     "closes_at"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "images", :force => true do |t|
+    t.string   "data"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "news_items", :force => true do |t|
@@ -41,15 +64,6 @@ ActiveRecord::Schema.define(:version => 20140116210714) do
     t.string   "text"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "pages", :force => true do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "sort_order"
-    t.boolean  "is_published"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
   end
 
   create_table "photos", :force => true do |t|

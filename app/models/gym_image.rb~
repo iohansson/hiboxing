@@ -1,0 +1,3 @@
+class GymImage < ActiveRecord::Base
+  attr_accessible :url
+end

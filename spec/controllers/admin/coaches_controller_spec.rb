@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Admin::CoachesController do
+  include LoginMacros
+  before do
+    user = FactoryGirl.create(:user)
+    set_user_session user
+  end
   describe 'GET index' do
     it "succeeds" do
       get :index
@@ -9,6 +14,11 @@ describe Admin::CoachesController do
     it "assigns coaches" do
       get :index
       expect(assigns[:coaches]).to eq(Coach.all)
+    end
+    it "requires login" do
+      unset_user_session
+      get :index
+      expect(response).to redirect_to(login_url)
     end
   end
   describe 'GET new' do

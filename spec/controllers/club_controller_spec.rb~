@@ -14,5 +14,21 @@ describe ClubController do
       get :index
       expect(assigns[:photos]).to eq(Photo.last(3))
     end
+    it "assigns events" do
+      get :index
+      expect(assigns[:events]).to eq(Event.all)
+    end
+    it "assigns contacts" do
+      get :index
+      expect(assigns[:contacts]).to eq(Gym.last)
+    end
+    it "assigns coaches" do
+      get :index
+      expect(assigns[:coaches]).to eq(Coach.all)
+    end
+    it "assigns static pages" do
+      get :index
+      expect(assigns[:pages]).to eq(Page.all)
+    end
   end
 end

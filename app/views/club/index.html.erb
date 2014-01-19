@@ -1,10 +1,23 @@
 <div id="latest_news">
+  <%= link_to 'Новости', news_items_path %>
   <% cache ['latest_news', NewsItem.order('updated_at').last] do %>
     <%= render @news_items %>
   <% end %>
 </div>
 <div id="latest_photos">
+  <%= link_to 'Фото', photos_path %>
   <% cache ['latest_photos', Photo.last] do %>
     <%= render @photos %>
   <% end %>
+</div>
+<div id="schedule">
+  <%= render 'schedule' %>
+</div>
+<%= link_to 'Контакты', gyms_path %>
+<div id="contacts">
+  <%= render 'contacts' if @contacts %>
+</div>
+<div id="coaches">
+  <%= link_to 'Тренеры', coaches_path %>
+  <%= render @coaches %>
 </div>

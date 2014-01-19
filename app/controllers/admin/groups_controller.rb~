@@ -16,4 +16,10 @@ class Admin::GroupsController < ApplicationController
       render :new, notice: 'Не удалось добавить группу'
     end
   end
+  
+  def destroy
+    @group = Group.find(params[:id])
+    @group.destroy
+    redirect_to admin_groups_url, notice: 'Группа удалена'
+  end
 end

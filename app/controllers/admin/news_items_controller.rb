@@ -1,4 +1,4 @@
-class Admin::NewsItemsController < ApplicationController
+class Admin::NewsItemsController < Admin::ApplicationController
   before_filter :authorize
   before_filter :set_news_item, only: [:edit, :update, :destroy]
   def index

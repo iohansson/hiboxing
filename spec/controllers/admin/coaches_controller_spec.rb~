@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Admin::CoachesController do
+  include LoginMacros
   describe 'GET index' do
     it "succeeds" do
       get :index
@@ -9,6 +10,11 @@ describe Admin::CoachesController do
     it "assigns coaches" do
       get :index
       expect(assigns[:coaches]).to eq(Coach.all)
+    end
+    it "requires login" do
+      unset_user_session
+      get :index
+      expect(response).to redirect_to(login_url)
     end
   end
   describe 'GET new' do
@@ -40,6 +46,13 @@ describe Admin::CoachesController do
       coach = FactoryGirl.create(:coach)
       get :edit, id: coach.id
       expect(assigns[:coach]).to eq(coach)
+    end
+  end
+  describe 'DELETE destroy' do
+    it "redirects to index" do
+      coach = FactoryGirl.create(:coach)
+      delete :destroy, id: coach.id
+      expect(response).to redirect_to(admin_coaches_url)
     end
   end
 end

@@ -1,0 +1,8 @@
+<% title @gym.name %>
+
+<%= render 'form' %>
+
+<p>
+  <%= link_to "Показать", admin_gym_path(@gym) %> |
+  <%= link_to "Все залы", admin_gyms_path %>
+</p>

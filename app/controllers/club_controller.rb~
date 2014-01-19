@@ -1,7 +1,10 @@
 class ClubController < ApplicationController
-  skip_before_filter :authorize
   def index
     @news_items = NewsItem.order(:updated_at).last(3)
     @photos = Photo.last(3)
+    @events = Event.all
+    @contacts = Gym.last
+    @coaches = Coach.all
+    @pages = Page.all
   end
 end

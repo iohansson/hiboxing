@@ -1,0 +1,69 @@
+require 'spec_helper'
+
+describe "club index page" do
+  describe "news" do
+    before do
+      FactoryGirl.create_list(:news_item,10)
+      visit '/'
+    end
+    it "displays 3 latest news" do
+      expect(page.all('.news_item').count).to eq(3)
+    end
+    it "has link to all news" do
+      expect(page).to have_link('Новости')
+    end
+  end
+  describe "photos" do
+    before do
+      FactoryGirl.create_list(:photo,10)
+      visit '/'
+    end
+    it "displays 3 latest photos" do
+      expect(page.all('.photo').count).to eq(3)
+    end
+    it "has link to all photos" do
+      expect(page).to have_link('Фото')
+    end
+  end
+  describe "schedule" do
+    before do
+      event_a = FactoryGirl.create(:event, { 
+        day: 1, 
+        start: TimeOfDay.new(9), 
+        stop: TimeOfDay.new(10) 
+      })
+      event_b = FactoryGirl.create(:event, { 
+        day: 3, 
+        start: TimeOfDay.new(15), 
+        stop: TimeOfDay.new(16) 
+      })
+      visit '/'
+    end
+    it "renders schedule" do
+      expect(page.all('.event').count).to eq(2)
+    end
+  end
+  describe "contacts" do
+    it "shows phone and email" do
+      mock_geocoding!
+      gym = FactoryGirl.create(:gym)
+      visit '/'
+      expect(page).to have_content(gym.phone)
+      expect(page).to have_content(gym.email)
+      expect(page).to have_link('Контакты')
+    end
+  end
+  describe "coaches" do
+    before do
+      FactoryGirl.create_list(:coach,10)
+      visit '/'
+    end
+    it "renders coaches" do
+      expect(page.all('.coach').count).to eq(10)
+      expect(page).to have_link('Тренеры')
+    end
+  end
+  describe "static pages" do
+    
+  end
+end 

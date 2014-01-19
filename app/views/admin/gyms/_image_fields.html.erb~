@@ -1,0 +1,9 @@
+<fieldset>
+  <% if f.object.data.thumb.url %>
+    <%= image_tag(f.object.data.thumb.url) %><br />
+  <% end %>
+  <%= f.label :data, 'Файл' %><br />
+  <%= f.file_field :data %><br />
+  <%= f.check_box :_destroy %>
+  <%= f.label :_destroy, 'удалить' %>
+</fieldset>

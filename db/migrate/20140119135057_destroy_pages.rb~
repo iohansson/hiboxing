@@ -1,0 +1,5 @@
+class DestroyPages < ActiveRecord::Migration
+  def change
+    delete_table :pages
+  end
+end

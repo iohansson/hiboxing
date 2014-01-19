@@ -1,0 +1,35 @@
+<%= nested_form_for [:admin,@gym] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name, 'Название' %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :address, 'Адрес' %><br />
+    <%= f.text_field :address %>
+  </p>
+  <p>
+    <%= f.label :phone, 'Телефон' %><br />
+    <%= f.text_field :phone %>
+  </p>
+  <p>
+    <%= f.label :email, 'Почта' %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :opens_at, 'c' %><br />
+    <%= f.time_select :opens_at %>
+  </p>
+  <p>
+    <%= f.label :closes_at, 'по' %><br />
+    <%= f.time_select :closes_at %>
+  </p>
+  <p class="images">
+    Изображения
+    <%= f.fields_for :images %>
+    <p>
+      <%= f.link_to_add 'Добавить', :images %>
+    </p>
+  </p>
+  <p><%= f.submit 'Сохранить' %></p>
+<% end %>

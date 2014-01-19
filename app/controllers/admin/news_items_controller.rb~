@@ -1,5 +1,6 @@
 class Admin::NewsItemsController < ApplicationController
   before_filter :authorize
+  before_filter :set_news_item, only: [:edit, :update, :destroy]
   def index
     @news_items = NewsItem.page(params[:page]).order('updated_at DESC')
   end
@@ -9,7 +10,6 @@ class Admin::NewsItemsController < ApplicationController
   end
   
   def edit
-    @news_item = NewsItem.find(params[:id])
     render :new
   end
   
@@ -23,7 +23,6 @@ class Admin::NewsItemsController < ApplicationController
   end
   
   def update
-    @news_item = NewsItem.find(params[:id])
     if @news_item.update_attributes(params[:news_item])
       redirect_to admin_news_items_path, notice: 'Новость успешно обновлена'
     else
@@ -32,8 +31,13 @@ class Admin::NewsItemsController < ApplicationController
   end
   
   def destroy
-    news_item = NewsItem.find(params[:id])
-    news_item.destroy
+    @news_item.destroy
     redirect_to admin_news_items_path, notice: 'Вы удалили новость'
+  end
+  
+  protected
+  
+  def set_news_item
+    @news_item = NewsItem.find(params[:id])
   end
 end
