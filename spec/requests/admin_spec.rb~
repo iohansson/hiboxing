@@ -1,29 +1,29 @@
-include LoginMacros
-include AttachMacros
-
 describe "administration" do
+  include LoginMacros
+  include AttachMacros
+  
   before do
     create_user_and_sign_in_via_form
   end
 
   describe "news management" do
-    it "adds a news item" do
+    let(:news_item) { FactoryGirl.create :news_item, title: 'Новость' }
+    before do
+      news_item #lazy-load news_item
       click_link 'Новости'
       expect(current_path).to eq(admin_news_items_path)
+    end
+    it "adds a news item" do
       expect{
         click_link 'Добавить новость'
         fill_in 'Заголовок', with: 'Прекрасная новость!'
         fill_in 'Текст', with: 'Лорем ипсум дот амет'
         click_button 'Опубликовать'
       }.to change{NewsItem.count}.by(1)
-      expect(current_path).to eq(admin_news_items_path)
       expect(page).to have_content('Прекрасная новость!')
     end
     
     it "edits a news item" do
-      news_item = FactoryGirl.create(:news_item, title: 'Новость')
-      click_link 'Новости'
-      expect(current_path).to eq(admin_news_items_path)
       expect{
         within "div#news_item_#{news_item.id}" do
           click_link 'Редактировать'
@@ -31,21 +31,20 @@ describe "administration" do
         fill_in 'Заголовок', with: 'Отредактировано'
         click_button 'Опубликовать'
       }.to change{NewsItem.find(news_item.id).title}.from('Новость').to('Отредактировано')
-      expect(current_path).to eq(admin_news_items_path)
       expect(page).to have_content('Отредактировано')
     end
     
     it "deletes a news item" do
-      news_item = FactoryGirl.create(:news_item, title: 'Удали меня')
-      click_link 'Новости'
-      expect(current_path).to eq(admin_news_items_path)
       expect{
         within "div#news_item_#{news_item.id}" do
           click_link 'Удалить'
         end
       }.to change{NewsItem.count}.by(-1)
-      expect(current_path).to eq(admin_news_items_path)
-      expect(page).not_to have_content('Удали меня')
+      expect(page).not_to have_content(news_item.title)
+    end
+    
+    after do
+      expect(current_path).to eq(admin_news_item_path)
     end
   end
 
@@ -116,23 +115,6 @@ describe "administration" do
         click_button 'Сохранить'
       }.to change{User.find(user.id).password_digest}
       expect(current_path).to eq(admin_users_path)
-    end
-  end
-  
-  describe "static pages management" do
-    it "adds page" do
-      click_link 'Страницы'
-      expect(current_path).to eq(admin_pages_path)
-      expect{
-        click_link 'Добавить страницу'
-        fill_in 'Заголовок', with: 'О клубе'
-        fill_in 'Содержание', with: '<b>Хорошо!</b>'
-        fill_in 'Порядок', with: 1
-        check 'Опубликована'
-        click_button 'Сохранить'
-      }.to change{Page.count}.by(1)
-      expect(current_path).to eq(admin_pages_path)
-      expect(page).to have_content('О клубе')
     end
   end
   
@@ -223,7 +205,7 @@ describe "administration" do
       }.not_to change{Event.count}
     end
   end
-  describe "coaches management" do
+  describe "coaches management", focus: true do
     it "adds coaches" do
       visit admin_path
       click_link 'Тренеры'
@@ -233,6 +215,7 @@ describe "administration" do
         fill_in 'Текст', with: 'Лучший из лучших'
         attach_file 'Фото', test_files_dir+"test.jpg"
         click_button 'Сохранить'
+        click_button 'Обрезать'
       }.to change{Coach.count}.by(1)
       expect(current_path).to eq(admin_coaches_path)
       expect(page).to have_content('Мохаммед Али')
@@ -260,6 +243,35 @@ describe "administration" do
       }.to change{Coach.count}.by(-1)
       expect(current_path).to eq(admin_coaches_path)
       expect(page).not_to have_content('Удали меня')
+    end
+    it "crops photo with jcrop for coach avatar" do
+      visit admin_path
+      click_link 'Тренеры'
+      click_link 'Добавить'
+      fill_in 'Имя', with: 'Мохаммед Али'
+      fill_in 'Текст', with: 'Лучший из лучших'
+      attach_file 'Фото', test_files_dir+"test.jpg"
+      click_button 'Сохранить'
+      expect(page).to have_content('Обработка фотографии')
+      expect(page).to have_xpath("//img[@src[contains(.,'test.jpg')]]")
+      click_button 'Обрезать'
+      expect(current_path).to eq(admin_coaches_path)
+    end
+    it "indexes coaches with images and names" do
+      coaches = [{ name: 'Мохаммед Али' }, { name: 'Артуро Гатти' }]
+      visit admin_path
+      click_link 'Тренеры'
+      coaches.each do |coach|
+        click_link 'Добавить'
+        fill_in 'Имя', with: coach[:name]
+        fill_in 'Текст', with: 'Лучший из лучших'
+        attach_file 'Фото', test_files_dir+"test.jpg"
+        click_button 'Сохранить'
+        click_button 'Обрезать'
+      end
+      expect(page).to have_content('Мохаммед Али')
+      expect(page).to have_content('Артуро Гатти')
+      expect(page).to have_xpath("//img[@src[contains(.,'thumb_test.jpg')]]")
     end
   end
   describe "gyms management", focus: true do

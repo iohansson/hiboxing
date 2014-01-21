@@ -1,3 +1,3 @@
-<div class="news_item">
-  <h4><%= news_item.title %></h4>
+<div class="photo lightbox">
+  <%= image_tag photo.image.thumb.url, { data: photo.image.url } %>
 </div>

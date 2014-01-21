@@ -24,7 +24,7 @@ event has to contain data about where to place it on schedule and how long is it
 <% @events.each do |event| %>
   <div class="event" id="<%= event.js_id %>">
     <%= event.name %>
-    <div class="event_helper">
+    <div class="event-helper">
       <strong><%= event.price %></strong>
       <p><%= event.description %></p>
     </div>

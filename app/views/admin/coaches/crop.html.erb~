@@ -1,0 +1,13 @@
+<h1>Обработка фотографии</h1>
+
+<%= image_tag @coach.image_url(:large), id: 'cropbox' %>
+
+<%= form_for [:admin,@coach] do |f| %>
+  <% %w[w h x y].each do |attribute| %>
+    <%= f.hidden_field "crop_#{attribute}" %>
+  <% end %>
+  
+  <div class="actions">
+    <%= f.submit "Обрезать" %>
+  </div>
+<% end %>

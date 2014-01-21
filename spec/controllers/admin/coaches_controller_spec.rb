@@ -36,7 +36,12 @@ describe Admin::CoachesController do
       @valid = FactoryGirl.attributes_for(:coach)
       @invalid = FactoryGirl.attributes_for(:invalid_coach)
     end
-    it "redirects to index on success" do
+    it "renders crop action when image present" do
+      post :create, coach: @valid
+      expect(response).to render_template(:crop)
+    end 
+    it "redirects to index on success wihout image" do
+      @valid[:image] = nil
       post :create, coach: @valid
       expect(response).to redirect_to(admin_coaches_url)
     end
