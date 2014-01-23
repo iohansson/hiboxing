@@ -11,17 +11,17 @@ describe SessionController do
 
   describe "POST 'create'" do
     before do
-      @user = User.find_by_name('specific')
+      @user = User.find_by_email('specific@mail.com')
       if !@user
-        @user = FactoryGirl.create(:user, name: 'specific')
+        @user = FactoryGirl.create(:user, email: 'specific@mail.com')
       end
     end
     it "logs in with valid credentials" do
-      post 'create', name: @user.name, password: "pass"
+      post 'create', email: @user.email, password: "pass"
       expect(response).to redirect_to admin_url
     end
     it "does not login with invalid credentials" do
-      post 'create', name: @user.name, password: "wrong"
+      post 'create', email: @user.email, password: "wrong"
       expect(response).to render_template('new') 
     end
   end

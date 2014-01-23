@@ -4,15 +4,15 @@ describe User do
   context "Validation" do
     it "should not save user when password and confirmation do not match" do
       user = {
-        name: 'coolname',
+        email: 'coolname',
         password: 'right',
         password_confirmation: 'wrong'
       }
       expect{User.create(user)}.not_to change{User.count}
     end
-    it "should not save user with duplicate name" do
+    it "should not save user with duplicate email" do
       user = {
-        name: 'duplicate',
+        email: 'duplicate',
         password: 'right',
         password_confirmation: 'right'
       }

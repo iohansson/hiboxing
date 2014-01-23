@@ -1,5 +1,5 @@
 class Admin::GroupsController < Admin::ApplicationController
-  before_filter :authorize
+
   def index
     @groups = Group.all
   end

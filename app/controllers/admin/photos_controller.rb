@@ -1,5 +1,5 @@
 class Admin::PhotosController < Admin::ApplicationController
-  before_filter :authorize
+
   before_filter :set_photo, only: [:edit,:update,:destroy]
   def index
     @photos = Photo.all

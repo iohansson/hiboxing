@@ -1,0 +1,19 @@
+<% title "Спортсмены" %>
+
+<table>
+  <tr>
+    <th>Имя</th>
+    <th>Телефон</th>
+  </tr>
+  <% for sportsman in @sportsmen %>
+    <tr>
+      <td><%= sportsman.name %></td>
+      <td><%= sportsman.phone %></td>
+      <td><%= link_to "Показать", admin_sportsman_path(sportsman) %></td>
+      <td><%= link_to "Редактировать", edit_admin_sportsman_path(sportsman) %></td>
+      <td><%= link_to "Удалить", admin_sportsman_path(sportsman), :confirm => 'Уверены?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "Добавить", new_admin_sportsman_path %></p>

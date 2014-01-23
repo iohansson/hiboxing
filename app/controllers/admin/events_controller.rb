@@ -1,7 +1,6 @@
 include EventsHelper
 
 class Admin::EventsController < Admin::ApplicationController
-  before_filter :authorize
 
   def index
     @events = Event.all

@@ -3,11 +3,7 @@ require 'spec_helper'
 describe Admin::NewsItemsController do
   include LoginMacros
   before do
-    user = User.find_by_name('specific')
-    if !user
-      user = FactoryGirl.create(:user, name: 'specific')
-    end
-    set_user_session user
+    create_user_and_sign_in(true)
   end
   describe "new" do
     it "assigns new news" do

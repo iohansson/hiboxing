@@ -1,0 +1,16 @@
+<%= form_for [:admin, @sportsman] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name, 'Имя' %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :phone, 'Телефон' %><br />
+    <%= f.text_field :phone %>
+  </p>
+  <p>
+    <%= f.label :email, 'Почта' %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p><%= f.submit 'Сохранить' %></p>
+<% end %>

@@ -1,0 +1,24 @@
+<h1>Регистрация</h1>
+
+<div class="register_form">
+  <%= form_for @user do |f| %>
+    <%= f.label :email, 'Почта' %>
+    <%= text_field_tag :email %>
+    
+    <%= f.label :password, 'Пароль' %>
+    <%= f.password_field :password %>
+    
+    <%= f.label :password_confirmation, 'Пароль еще раз' %>
+    <%= f.password_field :password_confirmation %>
+    
+    <%= f.fields_for :sportsman do |builder| %>
+      <%= builder.label :name, 'Имя' %>
+      <%= builder.text_field :name %>
+      
+      <%= builder.label :phone, 'Телефон' %>
+      <%= builder.text_field :phone %>
+    <% end %>
+    
+    <%= f.submit 'Вперед!' %>
+  <% end %>
+</div>

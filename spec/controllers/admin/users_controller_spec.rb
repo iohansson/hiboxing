@@ -4,11 +4,7 @@ include LoginMacros
 describe Admin::UsersController do
   
   before do
-    user = User.find_by_name('specific')
-    if !user
-      user = FactoryGirl.create(:user, name: 'specific')
-    end
-    set_user_session user
+    create_user_and_sign_in(true)
   end
   
   describe "GET new" do
@@ -20,7 +16,7 @@ describe Admin::UsersController do
   
   describe "POST create" do
     before do
-      @valid_user = FactoryGirl.attributes_for(:user, name: 'unique')
+      @valid_user = FactoryGirl.attributes_for(:user, email: 'unique@mail.com')
     end
     it "redirects to index on success" do
       post :create, user: @valid_user

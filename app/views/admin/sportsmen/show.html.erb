@@ -1,0 +1,16 @@
+<% title "Admin/Sportsman" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @sportsman.name %>
+</p>
+<p>
+  <strong>Phone:</strong>
+  <%= @sportsman.phone %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_admin_sportsman_path(@sportsman) %> |
+  <%= link_to "Destroy", admin_sportsman_path(@sportsman), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_sportsmen_path %>
+</p>

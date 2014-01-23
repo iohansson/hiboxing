@@ -10,11 +10,7 @@ describe Admin::AdminController do
       expect(response).to redirect_to login_url
     end
     it "accesses when user logs in" do
-      user = User.find_by_name('specific')
-      if !user
-        user = FactoryGirl.create(:user, name: 'specific')
-      end
-      set_user_session(user)
+      create_user_and_sign_in(true)
       
       get 'index'
       expect(response).to be_success

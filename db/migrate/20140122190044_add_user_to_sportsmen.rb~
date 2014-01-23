@@ -1,0 +1,6 @@
+class AddUserToSportsmen < ActiveRecord::Migration
+  def change
+    add_column :sportsmen, :user, :references
+    add_index :sportsmen, :user
+  end
+end

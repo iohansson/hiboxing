@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::ApplicationController
-  before_filter :authorize
+
   before_filter :set_user, only: [:edit, :update]
 
   def index

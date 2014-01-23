@@ -3,7 +3,7 @@ require 'geocoder/results/base'
 module MockGeocoder
   def self.included(base)
     base.before :each do
-      ::Geocoder.stubs(:search).raises(RuntimeError.new 'Use "mock_geocoding!" in your tests!')
+      ::Geocoder.stub(:search) { raise 'Use "mock_geocoding!" in your tests!' }
     end
   end
   
@@ -11,8 +11,8 @@ module MockGeocoder
     options.reverse_merge!(address: 'Address', coordinates: [1,2])
     
     MockResult.new.tap do |result|
-      result.stub options
-      Geocoder.stubs search: [result]
+      result.stub(:options) { options }
+      Geocoder.stub(:search) { [result] }
     end
   end
   

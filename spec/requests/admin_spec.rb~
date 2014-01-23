@@ -1,9 +1,11 @@
+require 'spec_helper'
+
 describe "administration" do
   include LoginMacros
   include AttachMacros
   
   before do
-    create_user_and_sign_in_via_form
+    create_user_and_sign_in_via_form(true)
   end
 
   describe "news management" do
@@ -44,7 +46,7 @@ describe "administration" do
     end
     
     after do
-      expect(current_path).to eq(admin_news_item_path)
+      expect(current_path).to eq(admin_news_items_path)
     end
   end
 
@@ -274,7 +276,7 @@ describe "administration" do
       expect(page).to have_xpath("//img[@src[contains(.,'thumb_test.jpg')]]")
     end
   end
-  describe "gyms management", focus: true do
+  describe "gyms management" do
     it "adds gym and shows it with map" do
       mock_geocoding!
       click_link 'Залы'

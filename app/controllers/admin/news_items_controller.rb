@@ -1,5 +1,4 @@
 class Admin::NewsItemsController < Admin::ApplicationController
-  before_filter :authorize
   before_filter :set_news_item, only: [:edit, :update, :destroy]
   def index
     @news_items = NewsItem.page(params[:page]).order('updated_at DESC')

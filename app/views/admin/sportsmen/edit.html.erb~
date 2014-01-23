@@ -1,0 +1,8 @@
+<% title "Edit Admin/Sportsman" %>
+
+<%= render 'form' %>
+
+<p>
+  <%= link_to "Show", @sportsman %> |
+  <%= link_to "View All", admin_sportsmen_path %>
+</p>

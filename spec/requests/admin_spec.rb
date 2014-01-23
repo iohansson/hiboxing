@@ -1,9 +1,11 @@
+require 'spec_helper'
+
 describe "administration" do
   include LoginMacros
   include AttachMacros
   
   before do
-    create_user_and_sign_in_via_form
+    create_user_and_sign_in_via_form(true)
   end
 
   describe "news management" do
@@ -94,7 +96,7 @@ describe "administration" do
       expect(current_path).to eq(admin_users_path)
       expect{
         click_link 'Добавить пользователя'
-        fill_in 'Логин', with: 'iohansson'
+        fill_in 'Почта', with: 'iohansson'
         fill_in 'Пароль', with: 'secret'
         fill_in 'Пароль еще раз', with: 'secret'
         click_button 'Сохранить'
@@ -103,7 +105,7 @@ describe "administration" do
       expect(page).to have_content('iohansson')
     end
     it "edits user" do
-      user = FactoryGirl.create(:user, name: 'Edit me')
+      user = FactoryGirl.create(:user, email: 'Edit me')
       click_link 'Пользователи'
       expect(current_path).to eq(admin_users_path)
       expect{
@@ -274,7 +276,7 @@ describe "administration" do
       expect(page).to have_xpath("//img[@src[contains(.,'thumb_test.jpg')]]")
     end
   end
-  describe "gyms management", focus: true do
+  describe "gyms management" do
     it "adds gym and shows it with map" do
       mock_geocoding!
       click_link 'Залы'

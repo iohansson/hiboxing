@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Admin::EventsController do
   include LoginMacros
   before do
-    create_user_and_sign_in
+    create_user_and_sign_in(true)
   end
   describe "GET index" do
     it "assigns events" do

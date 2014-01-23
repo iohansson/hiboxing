@@ -16,7 +16,7 @@ describe Coach do
     it "calls crop_image after update if has crop params" do
       coach = FactoryGirl.create(:coach)
       coach.crop_x = 0
-      expect(coach).to receive(:crop_image)
+      coach.expects(:crop_image)
       coach.save
     end
   end

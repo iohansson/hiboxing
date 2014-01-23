@@ -1,0 +1,7 @@
+class DashboardController < ApplicationController
+  before_filter { |c| c.authorize false }
+
+  def index
+    @user = 2
+  end
+end

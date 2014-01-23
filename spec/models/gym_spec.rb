@@ -5,7 +5,7 @@ describe Gym do
     before do
       mock_geocoding!
     end
-    subject {FactoryGirl.build(:gym)}
+    subject { FactoryGirl.build(:gym) }
     %w(name address phone).each do |attr|
       it "should have #{attr}" do
         subject.send("#{attr}=",nil)
@@ -19,10 +19,13 @@ describe Gym do
       expect(subject).to respond_to(:images)
     end
   end
-  it "geocodes address" do
-    mock_geocoding!
-    gym = FactoryGirl.create(:gym)
-    expect(gym.latitude).not_to be_nil
-    expect(gym.longitude).not_to be_nil
+  context "Geocoding" do
+    let(:gym) { FactoryGirl.create(:gym) }
+  
+    it "geocodes address" do
+      mock_geocoding!
+      expect(gym.latitude).not_to be_nil
+      expect(gym.longitude).not_to be_nil
+    end
   end
 end

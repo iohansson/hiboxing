@@ -3,8 +3,7 @@ require 'spec_helper'
 describe Admin::CoachesController do
   include LoginMacros
   before do
-    user = FactoryGirl.create(:user)
-    set_user_session user
+    create_user_and_sign_in(true) #admin
   end
   describe 'GET index' do
     it "succeeds" do

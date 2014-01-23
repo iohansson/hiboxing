@@ -1,9 +1,9 @@
 <h1>Авторизация</h1>
 
-<div id="login_form">
+<div class="login_form">
   <%= form_tag login_path, method: :post do %>
-    <%= label_tag :name, 'Логин' %>
-    <%= text_field_tag :name %>
+    <%= label_tag :email, 'Почта' %>
+    <%= text_field_tag :email %>
     
     <%= label_tag :password, 'Пароль' %>
     <%= password_field_tag :password %>
@@ -11,3 +11,5 @@
     <%= submit_tag 'Войти' %>
   <% end %>
 </div>
+
+<%= link_to 'Регистрация', new_user_path %>

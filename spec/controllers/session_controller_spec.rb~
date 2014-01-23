@@ -11,7 +11,10 @@ describe SessionController do
 
   describe "POST 'create'" do
     before do
-      @user = FactoryGirl.create(:user)
+      @user = User.find_by_name('specific')
+      if !@user
+        @user = FactoryGirl.create(:user, name: 'specific')
+      end
     end
     it "logs in with valid credentials" do
       post 'create', name: @user.name, password: "pass"
