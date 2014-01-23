@@ -2,6 +2,5 @@ class Sportsman < ActiveRecord::Base
   attr_accessible :name, :phone
   
   belongs_to :user
-  
-  #validates :user, presence: true
+  has_many :subs
 end

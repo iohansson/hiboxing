@@ -12,5 +12,8 @@ describe Sportsman do
     it "belongs to user" do
       expect(subject).to respond_to :user
     end
+    it "has many subs" do
+      expect(subject).to respond_to :subs
+    end
   end
 end

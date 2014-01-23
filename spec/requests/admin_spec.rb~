@@ -120,7 +120,7 @@ describe "administration" do
     end
   end
   
-  describe "group management" do
+  describe "group management", focus: true do
     it "adds groups" do
       click_link 'Группы'
       expect(current_path).to eq(admin_groups_path)
@@ -293,6 +293,21 @@ describe "administration" do
       }.to change{Gym.count}.by(1)
       expect(current_path).to eq(admin_gym_path(Gym.last))
       expect(page).to have_xpath("//img[@src[contains(.,'#{Gym.last.latitude}')]]")
+    end
+  end
+  describe "subs management", focus: true do
+    let(:sportsman) { FactoryGirl.create(:sportsman) }
+    let(:group) { FactoryGirl.create(:group) }
+    it "adds sub to sportsman" do
+      sportsman #lazy create sportsman
+      click_link 'Спортсмены'
+      expect{
+        click_link sportsman.name
+        click_link 'Выписать абонемент'
+        select group.name, from: 'Группа'
+        click_button 'Выписать'
+      }.to change{Sub.count}.by(1)
+      expect(current_path).to eq(edit_admin_sportsman_path(sportsman))
     end
   end
 end 

@@ -1,0 +1,4 @@
+<%= form_for [:admin,@sportsman,@sub] do |f| %>
+  <%= f.label :group_id, 'Группа' %>
+  <%= f.select :group_id, Group.all.collect { |g| [g.name, g.id] } %>
+<% end %>

@@ -295,4 +295,20 @@ describe "administration" do
       expect(page).to have_xpath("//img[@src[contains(.,'#{Gym.last.latitude}')]]")
     end
   end
+  describe "subs management", focus: true do
+    before do
+      @sportsman = FactoryGirl.create(:sportsman)
+      @group = FactoryGirl.create(:group)
+    end
+    it "adds sub to sportsman" do
+      click_link 'Спортсмены'
+      expect{
+        click_link @sportsman.name
+        click_link 'Выписать абонемент'
+        select @group.name, from: 'Группа'
+        click_button 'Выписать'
+      }.to change{Sub.count}.by(1)
+      expect(current_path).to eq(edit_admin_sportsman_path(@sportsman))
+    end
+  end
 end 

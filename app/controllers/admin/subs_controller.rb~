@@ -1,0 +1,20 @@
+class Admin::SubsController < Admin::ApplicationController
+  before_filter :set_sportsman
+
+  def index
+  end
+  
+  def new
+    @sub = @sportsman.subs.new
+  end
+  
+  def create
+    redirect_to edit_admin_sportsman_url(@sportsman)
+  end
+  
+  protected
+  
+  def set_sportsman
+    @sportsman = Sportsman.find(params[:sportsman_id])
+  end
+end

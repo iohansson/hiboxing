@@ -1,8 +1,8 @@
-<% title "Edit Admin/Sportsman" %>
+<% title "Управление спортсменом" %>
 
 <%= render 'form' %>
 
 <p>
-  <%= link_to "Show", admin_sportsman_path(@sportsman) %> |
+  <%= link_to "Выписать абонемент", new_admin_sportsman_sub_path(@sportsman) %> |
   <%= link_to "View All", admin_sportsmen_path %>
 </p>

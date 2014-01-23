@@ -1,4 +1,7 @@
 Hiboxing::Application.routes.draw do
+  resources :subs
+
+
   namespace(:admin){ resources :sportsmen }
 
   namespace :admin do
@@ -13,7 +16,7 @@ Hiboxing::Application.routes.draw do
     resources :gym_images, only: [:create, :index, :destroy]
   end
   
-  resources :users, only: [:create]
+  resources :users, only: [:create, :new]
   
   controller :session do
     get 'login' => :new

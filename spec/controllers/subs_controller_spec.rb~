@@ -1,0 +1,13 @@
+require 'spec_helper'
+
+describe Admin::SubsController do
+  describe "GET new", focus: true do
+    let(:sportsman) { FactoryGirl.create(:sportsman) }
+    it "assigns sportsman and sub" do
+      sportsman
+      get :new, sportsman_id: sportsman.id
+      expect(assigns[:sportsman]).to eq(sportsman)
+      expect(assigns[:sub]).to be_a(Sub)
+    end
+  end
+end

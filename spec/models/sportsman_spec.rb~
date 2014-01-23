@@ -7,11 +7,6 @@ describe Sportsman do
     it "should be valid" do
       expect(sportsman).to be_valid
     end
-    
-    it "must have user" do
-      sportsman.user = nil
-      expect(sportsman).not_to be_valid
-    end
   end
   context "Association" do
     it "belongs to user" do

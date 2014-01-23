@@ -1,0 +1,34 @@
+require 'spec_helper'
+
+describe Admin::SubsController, focus: true do
+  let(:sportsman) { FactoryGirl.create(:sportsman) }
+  let(:group) { FactoryGirl.create(:group) }
+  context "not logged in" do
+    it "redirects to login path when not logged in" do
+      get :index, sportsman_id: sportsman.id
+      expect(response).to redirect_to login_url
+    end
+  end
+  
+  context "logged in" do
+    before do
+      create_user_and_sign_in true #admin
+    end
+    describe "GET new" do
+      it "assigns sportsman and sub" do
+        get :new, sportsman_id: sportsman.id
+        expect(assigns[:sportsman]).to eq(sportsman)
+        expect(assigns[:sub]).to be_a(Sub)
+      end
+    end
+    describe "POST create" do
+      context "success" do
+        let(:valid) { FactoryGirl.attributes_for(:sub).merge({ group_id: group.id }) }
+        it "redirects to sportsman path" do
+          post :create, { sportsman_id: sportsman.id, sub: valid }
+          expect(response).to redirect_to edit_admin_sportsman_url(sportsman.id)
+        end
+      end
+    end
+  end
+end
