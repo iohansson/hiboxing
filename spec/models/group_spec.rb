@@ -12,6 +12,13 @@ describe Group do
       FactoryGirl.create(:group, name: 'unique')
       expect(subject).not_to be_valid
       expect(subject.errors[:name]).not_to be_nil
+    end
+    %w[num_trainings days].each do |attr|
+      it "must have #{attr}" do
+        subject.send("#{attr}=",nil)
+        expect(subject).not_to be_valid
+        expect(subject.errors[attr]).not_to be_nil
+      end
     end  
   end
   context "price" do

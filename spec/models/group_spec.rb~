@@ -22,4 +22,5 @@ describe Group do
       subject.price = 1200
       expect(subject.price).to eq(1200)
     end
+  end
 end

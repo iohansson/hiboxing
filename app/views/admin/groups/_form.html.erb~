@@ -5,6 +5,6 @@
     <%= f.label :name, 'Название' %>
     <%= f.text_field :name %>
     
-    <%= f.submit 'Сохранить' %>
+    <%= f.submit 'Добавить' %>
   <% end %>
 </div>

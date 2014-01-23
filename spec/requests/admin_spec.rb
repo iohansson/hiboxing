@@ -120,13 +120,15 @@ describe "administration" do
     end
   end
   
-  describe "group management" do
+  describe "group management", focus: true do
     it "adds groups" do
       click_link 'Группы'
       expect(current_path).to eq(admin_groups_path)
       expect{
         click_link 'Добавить группу'
         fill_in 'Название', with: 'VIP'
+        fill_in 'Тренировки', with: '12'
+        fill_in 'Дни', with: '30'
         click_button 'Добавить'
       }.to change{Group.count}.by(1)
       expect(current_path).to eq(admin_groups_path)
