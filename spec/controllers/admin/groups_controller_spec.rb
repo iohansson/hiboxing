@@ -2,9 +2,13 @@ require 'spec_helper'
 
 describe Admin::GroupsController do
   include LoginMacros
+  
+  let(:group) { FactoryGirl.create(:group) }
+  
   before do
     create_user_and_sign_in(true)
   end
+  
   describe "GET index" do
     it "assigns groups" do
       get :index
@@ -21,6 +25,17 @@ describe Admin::GroupsController do
     it "assigns group" do
       get :new
       expect(assigns[:group]).to be_a(Group)
+    end
+  end
+  
+  describe "GET edit" do
+    it "assigns group" do
+      get :edit, id: group.id
+      expect(assigns[:group]).to eq(group)
+    end
+    it "assigns active sportsmen" do
+      get :edit, id: group.id
+      expect(assigns[:sportsmen]).not_to be_nil
     end
   end
   

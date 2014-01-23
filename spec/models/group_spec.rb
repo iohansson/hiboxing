@@ -30,4 +30,16 @@ describe Group do
       expect(subject.price).to eq(1200)
     end
   end
+  context "sportsmen" do
+    let(:group) { FactoryGirl.create(:group) }
+    let(:sportsman) { FactoryGirl.create(:sportsman) }
+    let(:sub) { FactoryGirl.create(:sub, group: group, sportsman: sportsman) }
+    it "has sportsmen" do
+      expect(subject).to respond_to(:sportsmen)
+    end
+    it "retrieves active sportsmen" do
+      sub
+      expect(group.sportsmen.active).to eq([sportsman])
+    end
+  end
 end

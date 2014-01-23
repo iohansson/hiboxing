@@ -1,3 +1,7 @@
 <h1>Управление группами</h1>
 
 <%= link_to 'Добавить группу', new_admin_group_path %>
+
+<div id="groups">
+  <%= render @groups %>
+</div>

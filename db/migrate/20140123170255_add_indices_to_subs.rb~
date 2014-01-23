@@ -1,0 +1,4 @@
+class AddIndicesToSubs < ActiveRecord::Migration
+  def change
+  end
+end

@@ -4,7 +4,10 @@ class Sub < ActiveRecord::Base
   belongs_to :sportsman
   belongs_to :group
   
-  before_save :update_group_options
+  before_create :update_group_options
+  
+  scope :active, where('subs.trainings_left > 0 AND subs.until_date > :today', { today: Time.now })
+  scope :inactive, where('subs.trainings_left = 0 OR subs.until_date <= :today', { today: Time.now })
   
   protected
   

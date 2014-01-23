@@ -1,0 +1,8 @@
+<h1>Группа <%= @group.name %></h1>
+
+<h2>Спортсмены<h2>
+<div class="sportsmen">
+  <%= @sportsmen.each do |s| %>
+    <%= s.name %>
+  <% end %>
+</div>
