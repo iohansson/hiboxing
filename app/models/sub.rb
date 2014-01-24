@@ -3,11 +3,16 @@ class Sub < ActiveRecord::Base
   
   belongs_to :sportsman
   belongs_to :group
+  has_many :visits
   
   before_create :update_group_options
   
   scope :active, where('trainings_left > 0 AND until_date > :today', { today: Time.now })
   scope :inactive, where('trainings_left = 0 OR until_date <= :today', { today: Time.now })
+  
+  def sportsman_name
+    sportsman.name
+  end
   
   protected
   

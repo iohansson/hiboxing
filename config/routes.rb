@@ -1,4 +1,5 @@
 Hiboxing::Application.routes.draw do
+  
   namespace :admin do
     get '' => 'admin#index', as: "/"
     resources :news_items
@@ -11,7 +12,9 @@ Hiboxing::Application.routes.draw do
     resources :gym_images, only: [:create, :index, :destroy]
     
     resources :sportsmen do
-      resources :subs
+      resources :subs do
+        resources :visits
+      end
     end
   end
   

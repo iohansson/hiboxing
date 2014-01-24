@@ -33,9 +33,9 @@ describe Admin::GroupsController do
       get :edit, id: group.id
       expect(assigns[:group]).to eq(group)
     end
-    it "assigns active sportsmen" do
+    it "assigns active subscriptions" do
       get :edit, id: group.id
-      expect(assigns[:sportsmen]).not_to be_nil
+      expect(assigns[:subs]).not_to be_nil
     end
   end
   

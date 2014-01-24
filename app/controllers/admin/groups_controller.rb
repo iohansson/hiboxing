@@ -10,7 +10,7 @@ class Admin::GroupsController < Admin::ApplicationController
   end
   
   def edit
-    @sportsmen = @group.sportsmen.active
+    @subs = @group.active_subs_with_sportsmen
   end
   
   def create

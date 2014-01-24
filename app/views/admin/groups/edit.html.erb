@@ -2,7 +2,12 @@
 
 <h2>Спортсмены<h2>
 <div class="sportsmen">
-  <%= @sportsmen.each do |s| %>
-    <%= s.name %>
+  <% @subs.each do |s| %>
+    <div id="sub_<%= s.id %>">
+      <%= s.sportsman_name %>
+      <%= form_tag admin_sportsman_sub_visits_path(sportsman_id: s.sportsman.id, sub_id: s.id) do %>
+        <%= submit_tag 'Пришел' %>
+      <% end %> 
+    </div>
   <% end %>
 </div>

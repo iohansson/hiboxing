@@ -1,0 +1,4 @@
+class Admin::VisitsController < Admin::ApplicationController
+  def create
+  end
+end

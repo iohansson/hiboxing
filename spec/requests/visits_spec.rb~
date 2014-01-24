@@ -13,17 +13,24 @@ describe "visits" do
   
   describe "group page" do
     before do
-      group #i need that group))
+      sub #i need that sub))
       click_link 'Группы'
       expect(current_path).to eq(admin_groups_path)
+      click_link group.name
     end
     it "shows its active sportsmen" do
-      click_link group.name
       expect(page).to have_content(active_sportsman.name)
     end
     it "does not show inactive sportsmen" do
-      click_link group.name
       expect(page).not_to have_content(sportsman.name)
+    end
+    it "checks_in sportsman" do
+      expect{
+        within "#sub_#{sub.id}" do
+          click_button 'Пришел'
+        end
+      }.to change{active_sportsman.visits}.by(1)
+      expect(current_path).to eq(edit_admin_group_path(group))
     end
   end
 end

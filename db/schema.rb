@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140123170255) do
+ActiveRecord::Schema.define(:version => 20140124072654) do
 
   create_table "coaches", :force => true do |t|
     t.string   "name"
@@ -105,5 +105,13 @@ ActiveRecord::Schema.define(:version => 20140123170255) do
     t.datetime "updated_at",      :null => false
     t.boolean  "admin"
   end
+
+  create_table "visits", :force => true do |t|
+    t.integer  "sub_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "visits", ["sub_id"], :name => "index_visits_on_sub_id"
 
 end

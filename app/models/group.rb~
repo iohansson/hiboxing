@@ -5,6 +5,9 @@ class Group < ActiveRecord::Base
   validates :num_trainings, presence: true
   validates :days, presence: true
   
+  has_many :subs
+  has_many :sportsmen, through: :subs
+  
   def price
     super || "Бесплатно"
   end

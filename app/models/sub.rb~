@@ -6,8 +6,12 @@ class Sub < ActiveRecord::Base
   
   before_create :update_group_options
   
-  scope :active, where('subs.trainings_left > 0 AND subs.until_date > :today', { today: Time.now })
-  scope :inactive, where('subs.trainings_left = 0 OR subs.until_date <= :today', { today: Time.now })
+  scope :active, where('trainings_left > 0 AND until_date > :today', { today: Time.now })
+  scope :inactive, where('trainings_left = 0 OR until_date <= :today', { today: Time.now })
+  
+  def sportsman_name
+    sportsman.name
+  end
   
   protected
   
