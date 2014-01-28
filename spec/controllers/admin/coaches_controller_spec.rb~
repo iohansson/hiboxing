@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe Admin::CoachesController do
   include LoginMacros
-  let(:user) { FactoryGirl.create(:user) }
   before do
     create_user_and_sign_in(true) #admin
-    user #lazy-create
   end
   describe 'GET index' do
     it "succeeds" do
@@ -34,15 +32,10 @@ describe Admin::CoachesController do
   end
   describe 'POST create' do
     before do
-      @valid = FactoryGirl.attributes_for(:coach)
+      @valid = FactoryGirl.attributes_for(:coach).merge(image: Rails.root.join('spec','files','adriana.jpg'))
       @invalid = FactoryGirl.attributes_for(:invalid_coach)
     end
-    it "renders crop action when image present" do
-      post :create, coach: @valid
-      expect(response).to render_template(:crop)
-    end 
-    it "redirects to index on success wihout image" do
-      @valid[:image] = nil
+    it "redirects to index on success" do
       post :create, coach: @valid
       expect(response).to redirect_to(admin_coaches_url)
     end

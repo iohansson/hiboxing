@@ -1,8 +1,9 @@
 class Coach < ActiveRecord::Base
-  attr_accessible :description, :image, :name
+  attr_accessible :description, :image, :name, :crop_w, :crop_h, :crop_x, :crop_y
   attr_accessor :crop_w, :crop_h, :crop_x, :crop_y
-  mount_uploader :image, ImageUploader
+  mount_uploader :image, CoachUploader
   validates :name, presence: true
+  validates :image, presence: true
   
   after_update :crop_image
   

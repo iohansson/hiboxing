@@ -45,7 +45,7 @@ html, body {
   min-height: 100%;
   
   .nav {
-    width: 10%;
+    width: 20%;
     height: 100%;
     background: #f2a300;
     color: #603e00;
@@ -60,7 +60,7 @@ html, body {
   }
   
   .content {
-    width: 90%;
+    width: 80%;
     height: 100%;
     min-height: 100%;
     
@@ -87,6 +87,7 @@ html, body {
   }
   
   .coaches {
+    width: 100%;
     overflow: hidden;
     
     .coach {
@@ -103,6 +104,7 @@ html, body {
         left: -6px;
         padding-top: 6px;
         z-index: 15;
+        background: image-url('');
         
         p {
           background: white;

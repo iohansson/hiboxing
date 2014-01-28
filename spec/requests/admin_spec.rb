@@ -212,7 +212,6 @@ describe "administration" do
         fill_in 'Текст', with: 'Лучший из лучших'
         attach_file 'Фото', test_files_dir+"test.jpg"
         click_button 'Сохранить'
-        click_button 'Обрезать'
       }.to change{Coach.count}.by(1)
       expect(current_path).to eq(admin_coaches_path)
       expect(page).to have_content('Мохаммед Али')
@@ -241,20 +240,7 @@ describe "administration" do
       expect(current_path).to eq(admin_coaches_path)
       expect(page).not_to have_content('Удали меня')
     end
-    it "crops photo with jcrop for coach avatar" do
-      visit admin_path
-      click_link 'Тренеры'
-      click_link 'Добавить'
-      fill_in 'Имя', with: 'Мохаммед Али'
-      fill_in 'Текст', with: 'Лучший из лучших'
-      attach_file 'Фото', test_files_dir+"test.jpg"
-      click_button 'Сохранить'
-      expect(page).to have_content('Обработка фотографии')
-      expect(page).to have_xpath("//img[@src[contains(.,'test.jpg')]]")
-      click_button 'Обрезать'
-      expect(current_path).to eq(admin_coaches_path)
-    end
-    it "indexes coaches with images and names" do
+    it "indexes coaches with names" do
       coaches = [{ name: 'Мохаммед Али' }, { name: 'Артуро Гатти' }]
       visit admin_path
       click_link 'Тренеры'
@@ -264,11 +250,9 @@ describe "administration" do
         fill_in 'Текст', with: 'Лучший из лучших'
         attach_file 'Фото', test_files_dir+"test.jpg"
         click_button 'Сохранить'
-        click_button 'Обрезать'
       end
       expect(page).to have_content('Мохаммед Али')
       expect(page).to have_content('Артуро Гатти')
-      expect(page).to have_xpath("//img[@src[contains(.,'thumb_test.jpg')]]")
     end
   end
   describe "gyms management" do

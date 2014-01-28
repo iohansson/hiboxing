@@ -15,11 +15,7 @@ class Admin::CoachesController < Admin::ApplicationController
   def create
     @coach = Coach.new(params[:coach])
     if @coach.save
-      if params[:coach][:image].present?
-        render :crop
-      else
-        redirect_to admin_coaches_url, notice: 'Тренер добавлен'
-      end
+      redirect_to admin_coaches_url, notice: 'Тренер добавлен'
     else
       render :new, notice: 'Ошибка при добавлении тренера'
     end
@@ -27,11 +23,7 @@ class Admin::CoachesController < Admin::ApplicationController
   
   def update
     if @coach.update_attributes(params[:coach])
-      if params[:coach][:image].present?
-        render :crop
-      else
-        redirect_to admin_coaches_url, notice: 'Тренер изменен'
-      end
+      redirect_to admin_coaches_url, notice: 'Тренер изменен'
     else
       render :new, notice: 'Ошибка при сохранении тренера'
     end

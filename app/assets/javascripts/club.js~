@@ -5,10 +5,10 @@ $(function(){
   };
   $('.event').each(function(i){
     //id: event-id-day-start-duration-group_id
-    var data = $(this).attr('id').split('-');
-    attachElement($(this), $('#period-'+data[2]+'-'+data[3]));
+    var data = $(this).data('event');
+    attachElement($(this), $('#period-'+data.day+'-'+data.start));
     //set size by duration
-    $(this).css('height',data[4]);
+    $(this).css('height',data.duration);
   });
   $('.event').hover(function(){
     $(this).children('.event-helper').toggle();

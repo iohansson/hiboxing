@@ -1,3 +1,68 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+jQuery ->
+  attachElement = (what,to) ->
+    what.appendTo(to)
+    what
+  $('.event').each (i)->
+    #id: event-id-day-start-duration-group_id
+    data = $(this).data('event')
+    attachElement($(this), $('#period-'+data.day+'-'+data.start))
+    #set size by duration
+    $(this).css('height',data.duration)
+  $('.event').hover ->
+    $(this).children('.event-helper').toggle()
+    
+  $('.lightbox').click ->
+    $('body').css('overflow-y', 'hidden')
+    $('<div id="overlay"></div>')
+      .css('top', '0')
+      .css('opacity', '0')
+      .animate({opacity:'.5'},'slow')
+      .appendTo('body')
+    $('<div id="lightbox"></div>')
+      .hide()
+      .appendTo('body')
+    $('<img>')
+      .attr('src',$(this).attr('full'))
+      .load ->
+        positionLightboxImage()
+      .click ->
+        removeLightbox()
+      .appendTo('#lightbox')
+      false
+  
+  positionLightboxImage = ()->
+    top = ($(window).height() - $('#lightbox').height()) / 2
+    left = ($(window).width() - $('#lightbox').width()) / 2
+    $('#lightbox')
+      .css
+        'top': top,
+        'left': left
+      .fadeIn()
+  
+  lastScrollTop = $(window).scrollTop()
+  $(window).bind('scroll', (el,ev)-> scrollPage(@,ev))
+  
+  scrollPage = (obj,ev)->
+    pages = $('.container')
+    currentPage = -> 
+      $.grep(pages, (page)-> $(page).offset().top <= $(window).scrollTop() + 100)
+      .slice(-1)[0]
+    forward = ->
+      if $(window).scrollTop() > lastScrollTop then true else false
+    reachedBottom = ->
+      $(currentPage()).offset().top + $(currentPage()).height() < $(window).scrollTop() + $(window).height()
+    reachedTop = ->
+      $(currentPage()).offset().top > $(window).scrollTop()
+    if forward() && reachedBottom()
+      $(obj).unbind(ev)
+      $(document.documentElement).stop(true).animate
+        scrollTop: $(currentPage()).next().offset().top,
+        300, 
+        -> $(obj).bind('scroll', (el,ev) -> scrollPage(obj))
+    else if (!forward()) && reachedTop()
+      $(obj).unbind(ev)
+      $(document.documentElement).stop(true).animate
+        scrollTop: $(currentPage()).prev().offset().top,
+        300, 
+        -> $(window).bind('scroll', (el,ev) -> scrollPage(obj))
+    lastScrollTop = $(window).scrollTop()

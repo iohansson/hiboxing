@@ -1,5 +1,4 @@
 class Admin::CoachesController < Admin::ApplicationController
-  before_filter :authorize
   before_filter :set_coach, only: [:edit,:update,:destroy]
   def index
     @coaches = Coach.all

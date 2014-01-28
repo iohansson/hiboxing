@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require jquery_nested_form
 //= require jquery.ui.all
-//= require club.js
+//= require club
+//= require coaches

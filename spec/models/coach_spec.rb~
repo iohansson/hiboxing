@@ -8,16 +8,10 @@ describe Coach do
       expect(subject).not_to be_valid
       expect(subject.errors[:name]).not_to be_nil
     end
-  end
-  context "Cropping avatar" do
-    it "has crop parameters" do
-      expect(subject).to respond_to(:crop_x)
-    end
-    it "calls crop_image after update if has crop params" do
-      coach = FactoryGirl.create(:coach)
-      coach.crop_x = 0
-      expect(coach).to receive(:crop_image)
-      coach.save
+    it "must have image" do
+      subject.image = nil
+      expect(subject).not_to be_valid
+      expect(subject.errors[:image]).not_to be_nil
     end
   end
 end

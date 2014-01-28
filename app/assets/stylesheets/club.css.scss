@@ -87,7 +87,9 @@ html, body {
   }
   
   .coaches {
+    width: 100%;
     overflow: hidden;
+    overflow-x: hidden;
     
     .coach {
       position: relative;
@@ -103,6 +105,7 @@ html, body {
         left: -6px;
         padding-top: 6px;
         z-index: 15;
+        background: image-url('');
         
         p {
           background: white;
