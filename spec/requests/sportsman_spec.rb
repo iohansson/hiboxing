@@ -27,4 +27,7 @@ describe "Sportsmen", focus: true do
       end
     end
   end
+  describe "Dashboard" do
+    
+  end
 end

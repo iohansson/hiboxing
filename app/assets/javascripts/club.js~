@@ -24,7 +24,7 @@ $(function(){
       .hide()
       .appendTo('body');
     $('<img>')
-      .attr('src',$(this).attr('src'))
+      .attr('src',$(this).attr('full'))
       .load(function(){
         positionLightboxImage();
       })

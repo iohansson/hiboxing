@@ -139,7 +139,7 @@ describe "administration" do
       click_link 'Группы'
       expect(current_path).to eq(admin_groups_path)
       expect{
-        within "div#group-false-0-0-0-#{group.id}" do
+        within "div#group-#{group.id}" do
           click_link 'Удалить'
         end
       }.to change{Group.count}.by(-1)
@@ -147,7 +147,7 @@ describe "administration" do
       expect(page).not_to have_content('Удали меня')
     end
   end
-  describe "schedule event management" do
+  describe "schedule event management", current: true do
     before do
       @group = FactoryGirl.create(:group, name: 'VIP')
     end
@@ -158,16 +158,13 @@ describe "administration" do
       expect{
         #here comes js dragging group div to schedule scheme div and sending xhr after drop with params start time, finish time, day and group
         #first find what to drag
-        draggable = find("#group-false-0-0-0-#{@group.id}")
+        draggable = find('.groups').find("#group-#{@group.id}")
         #then where to drop
         droppable = find("#period-1-540")
         #drag and drop
         draggable.drag_to(droppable)
         #find event placed on grid
-        within "#event-false-1-540-30-#{@group.id}" do
-          #submit changes
-          find('.submit-button').click
-        end
+        droppable.find("#event").find('.submit-button').click
         #wait for a flash message
         expect(page).to have_content('Событие сохранено') 
       }.to change{Event.count}.by(1)
@@ -182,9 +179,7 @@ describe "administration" do
       visit admin_path
       click_link 'Расписание'
       expect{
-        within "#event-#{@event.id}-3-720-120-#{@group.id}" do
-          find('.remove-button').click
-        end
+        find("#period-3-720").find("#event-#{@event.id}").find('.remove-button').click
         expect(page).to have_content('Событие удалено')
       }.to change{Event.count}.by(-1)
     end
@@ -198,12 +193,10 @@ describe "administration" do
       visit admin_path
       click_link 'Расписание'
       expect{
-        draggable = find("#event-#{@event.id}-3-720-120-#{@group.id}")
+        draggable = find("#period-3-720").find("#event-#{@event.id}")
         droppable = find("#period-1-540")
         draggable.drag_to(droppable)
-        within "#event-#{@event.id}-1-540-120-#{@group.id}" do
-          find('.submit-button').click
-        end
+        droppable.find("#event-#{@event.id}").find('.submit-button').click
         #wait for a flash message
         expect(page).to have_content('Событие сохранено')
       }.not_to change{Event.count}

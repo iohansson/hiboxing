@@ -1,3 +1,8 @@
+Schedule = 
+  setup: ->
+    @initialize_groups
+    @initialize_events
+
 $(function(){
   var attachEvents = function(event){
     //clear resizable divs from original div
@@ -8,8 +13,7 @@ $(function(){
   };
   var activateControls = function(what){
     //clear controls and reassign
-    $(what).find('a.remove-button').remove();
-    $(what).find('a.submit-button').remove();
+    $(what).find('a').remove();
     $(what).append('<a class="remove-button">У</a>');
     $(what).append('<a class="submit-button">С</a>');
     //assign functions to controls
@@ -17,7 +21,7 @@ $(function(){
       $(this).parent().remove();
       //when removing block with event_id we should send an ajax request
       //to delete the event from DB
-      var eventId = $(this).parent().data('event').id;
+      eventId = $(this).parent().attr('id').split('-')[1];
       if(eventId){
         $.ajax('/admin/events/'+eventId,{
           type: 'DELETE',
@@ -31,22 +35,22 @@ $(function(){
       //ajax query to save event
       //for existing events we send event_ids
       //for all we send group_id, start_time and duration
-      var data = $(this).parent().data('event');
-      var eventId = data.id;
+      var params = $(this).parent().attr('id').split('-');
+      var eventId = params[1];
       var urlVar = '/admin/events';
       var typeVar = 'POST';
-      if(eventId){
+      if(eventId!='false'){
         urlVar = '/admin/events/'+eventId;
         typeVar = 'PUT';
       };
       $.ajax(urlVar,{
         type: typeVar,
         data: { event: {
-          group_id: data.group_id,
-          day: data.day,
-          start: data.start,
-          duration: data.duration,
-          event_id: data.id
+          group_id: params[5],
+          day: params[2],
+          start: params[3],
+          duration: params[4],
+          event_id: eventId
         }},
         dataType: 'json',
         success: saveSuccess,
@@ -65,23 +69,17 @@ $(function(){
     what.addClass('event');
     return what;
   }
-  var updateData = function(div,period){
-    var periodAttrs = period.attr('id').split('-');
-    var eventData = div.data('event');
-    if (eventData){
-      eventData.day = periodAttrs[1];
-      eventData.start = periodAttrs[2];
-      eventData.duration = parseInt(div.css('height'));
-    } else {
-      eventData = {
-        day: periodAttrs[1],
-        start: periodAttrs[2],
-        duration: parseInt(div.css('height')),
-        group_id: div.attr('id').split('-')[1]
-      }
-      div.attr('id','event');
-    }
-    div.attr('data-event', JSON.stringify(eventData));
+  var updateId = function(div,period){
+    periodAttrs = period.attr('id').split('-');
+    eventAttrs = div.attr('id').split('-');
+    div.attr('id',
+      'event-'+
+      eventAttrs[1]+'-'+
+      periodAttrs[1]+'-'+
+      periodAttrs[2]+'-'+
+      parseInt(div.css('height'))+'-'+
+      eventAttrs[5]
+    );
   }
   var schedule = {
     settings: {
@@ -97,7 +95,7 @@ $(function(){
       //to do: activate save on element
       stop: function(event,ui){  
         activateControls($(this));
-        updateData($(this),$(this).parent());    
+        updateId($(this),$(this).parent());    
       }
       //to do: restrict expanding block out of schedule
     },
@@ -114,16 +112,16 @@ $(function(){
           //attach events to event
           attachEvents(clone);
           //update id to format event-id(false)-day-start-duration-group_id
-          updateData(clone,$(this));
+          updateId(clone,$(this));
         }
       });
       //set events on schedule plain
       $('.event').each(function(i){
         //id: event-id-day-start-duration-group_id
-        var data = $(this).data('event');
-        attachElement($(this), $('#period-'+data.day+'-'+data.start));
+        var data = $(this).attr('id').split('-');
+        attachElement($(this), $('#period-'+data[2]+'-'+data[3]));
         //set size by duration
-        $(this).css('height',data.duration);
+        $(this).css('height',data[4]);
         attachEvents($(this));
         activateControls($(this));
       });
@@ -132,13 +130,11 @@ $(function(){
   var saveSuccess = function(data,status){
     //data have selector to identify processed block
     notify('Событие сохранено');
-    block = $("#period-"+data.day+"-"+data.start).children(".event");
+    block = $(data.selector);
     //remove button till next change
     block.find('.submit-button').remove();
     //assign new id
-    block.attr('id',"event-"+data.id);
-    //update data
-    block.attr('data-event',data);
+    block.attr('id',data.id);
   };
   var saveError = function(){
     notify('Ошибка при сохранении');

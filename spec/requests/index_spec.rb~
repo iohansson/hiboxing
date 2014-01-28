@@ -63,7 +63,4 @@ describe "club index page" do
       expect(page).to have_link('Тренеры')
     end
   end
-  describe "static pages" do
-    
-  end
 end 

@@ -5,7 +5,7 @@ class Sub < ActiveRecord::Base
   belongs_to :group
   has_many :visits
   
-  before_create :update_group_options
+  before_create :initial_values
   
   scope :active, where('trainings_left > 0 AND until_date > :today', { today: Time.now })
   scope :inactive, where('trainings_left = 0 OR until_date <= :today', { today: Time.now })
@@ -16,8 +16,9 @@ class Sub < ActiveRecord::Base
   
   protected
   
-  def update_group_options
+  def initial_values
     self.trainings_left = self.group.num_trainings
     self.until_date = Time.now + self.group.days.days
+    self.points = 0
   end
 end

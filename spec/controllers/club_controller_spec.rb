@@ -10,9 +10,9 @@ describe ClubController do
       get :index
       expect(assigns[:news_items]).to eq(NewsItem.order("updated_at").last(3))
     end
-    it "assigns 3 latest photos" do
+    it "assigns photos" do
       get :index
-      expect(assigns[:photos]).to eq(Photo.last(3))
+      expect(assigns[:photos]).to eq(Photo.all)
     end
     it "assigns events" do
       get :index

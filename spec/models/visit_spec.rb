@@ -6,4 +6,43 @@ describe Visit do
   it "should be valid" do
     expect(sub.visits.new).to be_valid
   end
+  
+  it "sets created on day" do
+    visit = sub.visits.new
+    expect{
+      visit.save
+    }.to change{visit.day}.to(Time.now.beginning_of_day)
+  end
+  
+  it "has sub" do
+    expect(subject).to respond_to(:sub)
+  end
+  
+  it "validates uniqueness of sub_id within day" do
+    sub.visits.create
+    expect{
+      sub.visits.create
+    }.not_to change{sub.visits.count}
+    now = Time.now
+    Time.stubs(:now).returns(now+1.day)
+    expect{
+      sub.visits.create
+    }.to change{sub.visits.count}.by(1)
+  end
+  
+  describe "after create" do
+    it "adds points to sub visited" do
+      expect{
+        sub.visits.create
+        sub.reload
+      }.to change{sub.points}.by(5)
+    end
+  
+    it "minuses trainings_left for sub" do
+      expect{
+        sub.visits.create
+        sub.reload
+      }.to change{sub.trainings_left}.by(-1)
+    end
+  end
 end

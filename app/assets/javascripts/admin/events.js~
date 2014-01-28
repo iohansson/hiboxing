@@ -79,7 +79,6 @@ $(function(){
         duration: parseInt(div.css('height')),
         group_id: div.attr('id').split('-')[1]
       }
-      div.attr('id','event');
     }
     div.attr('data-event', JSON.stringify(eventData));
   }

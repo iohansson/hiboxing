@@ -22,7 +22,7 @@ describe Admin::EventsController do
     it "creates event" do
       xhr :post, :create, event: { group_id: @group.id, day: 7, start: 540, duration: 60 }
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body["id"]).to eq("#event-#{Event.last.id}-7-540-60-#{@group.id}") 
+      expect(parsed_body["data"]).to eq(Event.last.data_json.as_json) 
     end
   end
   describe "DELETE destroy" do

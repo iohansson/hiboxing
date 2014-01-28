@@ -15,9 +15,7 @@ class Visit < ActiveRecord::Base
   end
   
   def update_sub
-    self.sub.points += 5
-    self.sub.trainings_left -= 1
-    self.sub.save
+    self.s
   end
   
   #validators

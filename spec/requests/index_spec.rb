@@ -18,11 +18,8 @@ describe "club index page" do
       FactoryGirl.create_list(:photo,10)
       visit '/'
     end
-    it "displays 3 latest photos" do
-      expect(page.all('.photo').count).to eq(3)
-    end
-    it "has link to all photos" do
-      expect(page).to have_link('Фото')
+    it "displays all photos" do
+      expect(page.all('.photo').count).to eq(10)
     end
   end
   describe "schedule" do

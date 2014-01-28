@@ -30,3 +30,4 @@ event has to contain data about where to place it on schedule and how long is it
     <% end %>
   <% end %>
 <% end %>
+<div class=".message"></div>

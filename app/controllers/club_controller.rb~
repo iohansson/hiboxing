@@ -5,6 +5,5 @@ class ClubController < ApplicationController
     @events = Event.all
     @contacts = Gym.last
     @coaches = Coach.all
-    @pages = Page.all
   end
 end

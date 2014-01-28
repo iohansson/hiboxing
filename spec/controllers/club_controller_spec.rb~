@@ -26,9 +26,5 @@ describe ClubController do
       get :index
       expect(assigns[:coaches]).to eq(Coach.all)
     end
-    it "assigns static pages" do
-      get :index
-      expect(assigns[:pages]).to eq(Page.all)
-    end
   end
 end

@@ -9,4 +9,10 @@ describe Sub, sub: true do
       expect(sub.until_date.to_i).to eq((Time.now+30.days).to_i) 
     end
   end
+  context "Levels" do
+    let(:sub) { FactoryGirl.create(:sub) }
+    it "has level" do
+      expect(sub).to respond_to(:level)
+    end
+  end
 end

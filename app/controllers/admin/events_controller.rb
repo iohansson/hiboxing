@@ -13,7 +13,7 @@ class Admin::EventsController < Admin::ApplicationController
     if @event.update_attributes(event)
       respond_to do |format|
         format.json { render json: {
-          id: '#'+@event.js_id 
+          data: @event.data_json 
         }, status: 200 }
       end
     else
@@ -30,7 +30,7 @@ class Admin::EventsController < Admin::ApplicationController
       if @event.save
         respond_to do |format|
           format.json { render json: {
-            id: '#'+@event.js_id 
+            data: @event.data_json
           }, status: 200 }
         end
       else

@@ -1,26 +1,78 @@
-<div class="nav">
-  <%= link_to 'Мой клуб', dashboard_path %>
+<div class="container table">
+  <div class="nav cell valign-middle">
+    <ul>
+      <li><%= link_to 'Клуб' %></li>
+      <li><%= link_to 'Тренеры' %></li>
+      <li><%= link_to 'Расписание' %></li>
+      <li><%= link_to 'Фото' %></li>
+      <li><%= link_to 'Контакты' %></li>
+      <li><%= link_to 'Мой клуб', dashboard_path %></li>
+    </ul>
+  </div>
+  <div class="content cell">
+    <div class="content-inside">
+      <h1><span>Высший</span> бокс</h1>
+      <div class="left half">
+        <p class="padded">
+          Кикбоксинг - очень зрелищный, и главное, очень эффективный вид
+          единоборства. Достигнувший  совершенства в этом виде спорта становится
+          непобедимым для любого противника.
+        </p>
+        <p>
+          Кикбоксинг - универсальный вид боевых искусств, объединивший в себе
+          лучшее, наиболее эффективное и максимально прикладное из классического
+          английского бокса и восточных единоборств (ушу, каратэ, таэквон-до).
+          Зародился кикбоксинг в середине 70-х годов практически одновременно в
+          Европе и Америке, с конца 80-х г.г. активно культивируется в России.
+          Имея европейские корни, кикбоксинг наиболее понятен и доступен для нас и
+          не обременен азиатскими традициями и ритуалами.
+        </p>
+      </div>
+      <div class="right half">
+        <h3>
+          Клуб создан весной 2013 года.
+          Спортивная команда существует с 1999 года
+        </h3>
+        <p class="padded-right">
+          Экипировка кикбоксера и методика подготовки позволяет абсолютно
+          безопасно для здоровья заниматься людям любого возраста и пола.
+        </p>
+        <p class="borders-decorated">
+          Занятия кикбоксингом позволяют приобрести крепкое здоровье, навыки
+          самообороны, способность решительно действовать в затруднительных или
+          опасных ситуациях, формируют уверенность в себе, дают возможность
+          обеспечить вашу личную безопасность и безопасность ваших близких,
+          помогают приобрести уверенные жесты, позы, взгляд, обеспечивают
+          оптимальный вес и идеальную фигуру (наилучший способ регулирования веса
+          за счет интенсивных нагрузок)
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
-<div id="latest_news">
-  <%= link_to 'Новости', news_items_path %>
-  <% cache ['latest_news', NewsItem.order('updated_at').last] do %>
-    <%= render @news_items %>
-  <% end %>
+<div class="container cf">
+  <div class="coaches cf">
+    <%= render @coaches %>
+  </div>
 </div>
-<div id="latest_photos">
-  <%= link_to 'Фото', photos_path %>
-  <% cache ['latest_photos', Photo.last] do %>
-    <%= render @photos %>
-  <% end %>
-</div>
-<div id="schedule">
-  <%= render 'schedule' %>
-</div>
-<%= link_to 'Контакты', gyms_path %>
-<div id="contacts">
-  <%= render 'contacts' if @contacts %>
-</div>
-<div id="coaches">
-  <%= link_to 'Тренеры', coaches_path %>
-  <%= render @coaches %>
+<div class="container cf">
+  <div id="latest_news">
+    <%= link_to 'Новости', news_items_path %>
+    <% cache ['latest_news', NewsItem.order('updated_at').last] do %>
+      <%= render @news_items %>
+    <% end %>
+  </div>
+  <div id="latest_photos">
+    <%= link_to 'Фото', photos_path %>
+    <% cache ['latest_photos', Photo.last] do %>
+      <%= render @photos %>
+    <% end %>
+  </div>
+  <div id="schedule">
+    <%= render 'shared/schedule' %>
+  </div>
+  <%= link_to 'Контакты', gyms_path %>
+  <div id="contacts">
+    <%= render 'contacts' if @contacts %>
+  </div>
 </div>

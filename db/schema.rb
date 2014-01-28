@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140124072654) do
+ActiveRecord::Schema.define(:version => 20140124212251) do
 
   create_table "coaches", :force => true do |t|
     t.string   "name"
@@ -93,6 +93,8 @@ ActiveRecord::Schema.define(:version => 20140124072654) do
     t.date     "until_date"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "points"
+    t.integer  "level"
   end
 
   add_index "subs", ["group_id"], :name => "index_subs_on_group_id"
@@ -110,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20140124072654) do
     t.integer  "sub_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.date     "day"
   end
 
   add_index "visits", ["sub_id"], :name => "index_visits_on_sub_id"

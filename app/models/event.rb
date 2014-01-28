@@ -30,15 +30,13 @@ class Event < ActiveRecord::Base
     self.group.description
   end
   
-  def js_id
-    [
-      'event',
-      self.id,
-      self.day,
-      self.start.second_of_day/60,
-      (self.stop.second_of_day-self.start.second_of_day)/60,
-      self.group_id
-    ].join '-'
+  def duration
+    #duration in minutes
+    (self.stop.second_of_day-self.start.second_of_day)/60
+  end
+  
+  def data_json
+    self.as_json(except: [:created_at, :updated_at, :stop, :start]).merge(duration: self.duration, start: self.start.second_of_day/60)
   end
   
   protected
