@@ -1,4 +1,4 @@
-<div class="day_names">
+<div class="day_names cf">
   <% %w(понедельник вторник среда четверг пятница суббота воскресенье).each do |day_name| %>
     <div class="day_name"><%= day_name %></div>
   <% end %>
@@ -8,7 +8,7 @@
     <div class="time_name"><%= time(480+30*time_offset) %></div>
   <% end %>
 </div>
-<div class="period_divs">
+<div class="period_divs cf">
   <% (1..7).each do |day| %>
     <div class="day">
       <% t = TimeOfDay.new(8) %>

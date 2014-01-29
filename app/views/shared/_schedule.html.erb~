@@ -1,4 +1,4 @@
-<div class="day_names">
+<div class="day_names cf">
   <% %w(понедельник вторник среда четверг пятница суббота воскресенье).each do |day_name| %>
     <div class="day_name"><%= day_name %></div>
   <% end %>
@@ -30,4 +30,4 @@ event has to contain data about where to place it on schedule and how long is it
     <% end %>
   <% end %>
 <% end %>
-<div class=".message"></div>
+<div class="message"></div>

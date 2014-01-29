@@ -55,6 +55,12 @@
     <%= render @coaches %>
   </div>
 </div>
+<div class="container table">
+  <div class="schedule cell">
+    <h1>Расписание</h1>
+    <%= render 'shared/schedule' %>
+  </div>
+</div>
 <div class="container cf">
   <div id="latest_news">
     <%= link_to 'Новости', news_items_path %>
@@ -66,9 +72,6 @@
     <% cache ['latest_photos', Photo.last] do %>
       <%= render @photos %>
     <% end %>
-  </div>
-  <div id="schedule">
-    <%= render 'shared/schedule' %>
   </div>
   <%= link_to 'Контакты', gyms_path %>
   <div id="contacts">
