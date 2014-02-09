@@ -10,7 +10,11 @@ describe Admin::SportsmenController do
     create_user_and_sign_in(true) #admin
     sportsman #lazy-create
   end
-
+  
+  it "requires login" do
+    require_admin_login
+  end
+  
   it "index action should render index template" do
     get :index
     response.should render_template(:index)

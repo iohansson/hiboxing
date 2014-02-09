@@ -4,9 +4,9 @@ class Admin::VisitsController < Admin::ApplicationController
   def create
     @visit = @sub.visits.new
     if @visit.save
-      redirect_to edit_admin_group_url(@sub.group), notice: 'ОК'
+      redirect_to request.referer, notice: 'ОК'
     else
-      redirect_to edit_admin_group_url(@sub.group), notice: 'Не ОК'
+      redirect_to request.referer, notice: 'Не ОК'
     end
   end
   

@@ -1,3 +1,7 @@
 <h1>Управление пользователями</h1>
 
 <%= link_to 'Добавить пользователя', new_admin_user_path %>
+
+<table class="admin">
+  <%= render @users %>
+</div>

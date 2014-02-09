@@ -14,7 +14,7 @@ class Admin::SportsmenController < ApplicationController
   def create
     @sportsman = Sportsman.new(params[:sportsman])
     if @sportsman.save
-      redirect_to @sportsman, :notice => "Successfully created admin/sportsman."
+      redirect_to admin_sportsmen_url, :notice => "Спортсмен добавлен"
     else
       render :action => 'new'
     end
@@ -27,7 +27,7 @@ class Admin::SportsmenController < ApplicationController
   def update
     @sportsman = Sportsman.find(params[:id])
     if @sportsman.update_attributes(params[:sportsman])
-      redirect_to @sportsman, :notice  => "Successfully updated admin/sportsman."
+      redirect_to admin_sportsmen_url, :notice => "Спортсмен изменен"
     else
       render :action => 'edit'
     end
@@ -36,6 +36,6 @@ class Admin::SportsmenController < ApplicationController
   def destroy
     @sportsman = Sportsman.find(params[:id])
     @sportsman.destroy
-    redirect_to admin_sportsmen_url, :notice => "Successfully destroyed admin/sportsman."
+    redirect_to admin_sportsmen_url, :notice => "Спортсмен удален"
   end
 end

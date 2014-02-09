@@ -109,7 +109,7 @@ describe "administration" do
       click_link 'Пользователи'
       expect(current_path).to eq(admin_users_path)
       expect{
-        within "div#user_#{user.id}" do
+        within "tr#user_#{user.id}" do
           click_link 'Редактировать'
         end
         fill_in 'Пароль', with: 'new'
@@ -273,6 +273,7 @@ describe "administration" do
     end
   end
   describe "subs management", focus: true do
+    let(:other_group) { FactoryGirl.create(:group, name: 'expired') }
     before do
       @sportsman = FactoryGirl.create(:sportsman)
       @group = FactoryGirl.create(:group)
@@ -286,6 +287,36 @@ describe "administration" do
         click_button 'Выписать'
       }.to change{Sub.count}.by(1)
       expect(current_path).to eq(edit_admin_sportsman_path(@sportsman))
+    end
+    describe "sportsman subs" do
+      before do
+        @sub = FactoryGirl.create(:sub_expired, sportsman: @sportsman, group: @group)
+        @sub_expired = FactoryGirl.create(:sub_expired, sportsman: @sportsman, group: other_group)
+        @sub_expired.until_date = 1.month.ago
+        @sub_expired.save
+        click_link 'Спортсмены'
+        click_link @sportsman.name
+      end
+      it "displays active subs for sportsman" do
+        within '.active-subs' do
+          expect(page).to have_content(@sub.group_name)
+          expect(page).not_to have_content(@sub_expired.group_name)
+        end
+      end
+      it "displays inactive subs for sportsman" do
+        within '.inactive-subs' do
+          expect(page).to have_content(@sub_expired.group_name)
+          expect(page).not_to have_content(@sub.group_name)
+        end
+      end
+      it "creates sportsman visit" do
+        expect{
+          within ".active-subs div.sub##{@sub.id}" do
+            click_button 'Пришел'
+          end
+        }.to change{@sub.visits.count}.by(1)
+        expect(current_path).to eq edit_admin_sportsman_path(@sportsman)
+      end
     end
   end
 end 

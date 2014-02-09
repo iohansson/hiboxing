@@ -4,6 +4,12 @@ FactoryGirl.define do
   factory :sportsman do
     name "MyString"
     phone "MyString"
-    user
+    password "pass"
+    password_confirmation "pass"
+    sequence(:email) {|n| "e#{n}@mail.com"}
+    
+    factory :sportsman_invalid do
+      name nil
+    end
   end
 end

@@ -3,12 +3,6 @@ class ApplicationController < ActionController::Base
   
   protected
   
-  def authorize(admin)
-    unless User.find_by_id_and_admin(session[:user_id],admin)
-      redirect_to login_url, notice: "Необходима авторизация"
-    end
-  end
-  
   def current_user
     User.find_by_id(session[:user_id])
   end

@@ -5,6 +5,10 @@ FactoryGirl.define do
     sportsman
     group
     trainings_left 1
-    until_date "2014-01-23"
+    until_date 1.month.from_now
+    
+    factory :sub_expired do
+      until_date 1.day.ago
+    end
   end
 end

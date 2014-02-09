@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
+    #to do: set default value to admin attr
     @user.admin = false
     if @user.save
       #log in created user

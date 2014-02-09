@@ -21,6 +21,11 @@ describe Group do
       end
     end  
   end
+  context "Associations" do
+    it "has events" do
+      expect(subject).to respond_to(:events)
+    end
+  end
   context "price" do
     subject { FactoryGirl.build(:group) }
     it "returns 'free' if price not specified" do

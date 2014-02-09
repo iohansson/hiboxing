@@ -1,6 +1,17 @@
 <div class="quarter left coach">
-  <%= image_tag coach.image_url if coach.image.url %>
-  <div class="name-block">
-    <%= render_name_as_first_and_last(coach.name) %>
+  <div class="coach-main">
+    <%= image_tag coach.image_url if coach.image.url %>
+    <div class="name-block">
+      <%= render_name_as_first_and_last(coach.name) %>
+    </div>
+  </div>
+  <div class="overlay"></div>
+  <div class="description">
+    <%= content_tag :span, class: 'huge' do %>
+      <%= coach.first_name %>
+      <%= content_tag :span, "&times;".html_safe, class: 'close' %>
+    <% end %>
+    <%= content_tag :span, coach.last_name, class: 'big' %>
+    <%= content_tag :p, coach.description %>
   </div>
 </div>

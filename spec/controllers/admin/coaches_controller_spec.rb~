@@ -32,7 +32,7 @@ describe Admin::CoachesController do
   end
   describe 'POST create' do
     before do
-      @valid = FactoryGirl.attributes_for(:coach).merge(image: Rails.root.join('spec','files','adriana.jpg'))
+      @valid = FactoryGirl.attributes_for(:coach)
       @invalid = FactoryGirl.attributes_for(:invalid_coach)
     end
     it "redirects to index on success" do

@@ -17,7 +17,7 @@ describe Admin::GroupsController do
     it "redirects to login when unauthorized" do
       unset_user_session
       get :index
-      expect(response).to redirect_to(login_url)
+      expect(response).to redirect_to(admin_login_url)
     end
   end
   

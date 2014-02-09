@@ -39,7 +39,7 @@ describe Group do
     end
     it "retrieves active sportsmen" do
       sub
-      expect(group.sportsmen.active).to eq([sportsman])
+      expect(group.active_subs_with_sportsmen).to eq([sub])
     end
   end
 end

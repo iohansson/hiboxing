@@ -9,13 +9,37 @@ class Event < ActiveRecord::Base
   def self.current
     day = Time.now.wday
     day = 7 if day == 0
-    Event.where('day = :day AND start <= :time AND stop >= :time',{day: day, time: Time.now.to_time_of_day.to_s})
+    where('day = :day AND start <= :time AND stop >= :time',{day: day, time: Time.now.to_time_of_day.to_s})
+  end
+  
+  def self.next_today
+    day = Time.now.wday
+    day = 7 if day == 0
+    where('day = :day AND start >= :time',{day: day, time: Time.now.to_time_of_day.to_s}).order(:start)
+  end
+  
+  def self.next_this_week
+    day = Time.now.wday
+    day = 7 if day == 0
+    where('(day = :day AND start >= :time) OR (day > :day)',{day: day, time: Time.now.to_time_of_day.to_s}).order(:day,:start)
+  end
+  
+  def self.next_next_week
+    day = Time.now.wday
+    day = 7 if day == 0
+    where('day < :day', {day: day}).order(:day,:start)
   end
   
   def self.next
-    day = Time.now.wday
-    day = 7 if day == 0
-    Event.where('day = :day AND start >= :time',{day: day, time: Time.now.to_time_of_day.to_s}).order(:start).first
+    return next_today.first if next_today.count > 0
+    return next_this_week.first if next_this_week.count > 0
+    return next_next_week.first if next_next_week.count > 0
+    return false
+  end
+  
+  def closest_date
+    day = 0 if day == 7
+    Date.commercial(Date.today.year, 1+Date.today.cweek, self.day)
   end
   
   def name

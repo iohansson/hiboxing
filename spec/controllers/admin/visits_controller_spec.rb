@@ -10,6 +10,7 @@ describe Admin::VisitsController do
   
   describe "POST create" do
     it "redirects to group page on success" do
+      controller.request.expects(:referer).returns(edit_admin_group_url(sub.group))
       post :create, sportsman_id: sub.sportsman.id, sub_id: sub.id
       expect(response).to redirect_to edit_admin_group_url(sub.group)
     end 

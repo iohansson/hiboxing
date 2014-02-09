@@ -16,7 +16,7 @@ describe Admin::UsersController do
   
   describe "POST create" do
     before do
-      @valid_user = FactoryGirl.attributes_for(:user, name: 'unique')
+      @valid_user = FactoryGirl.attributes_for(:user, email: 'unique@mail.com')
     end
     it "redirects to index on success" do
       post :create, user: @valid_user

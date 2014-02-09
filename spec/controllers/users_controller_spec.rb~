@@ -9,6 +9,12 @@ describe UsersController do
       }.to change{User.count}.by(1)
       expect(response).to redirect_to(dashboard_path)
     end
+    it "renders new on fail" do
+      @params = FactoryGirl.attributes_for(:user)
+      expect{
+        post :create, user: @params
+      }.to render_template(:new)
+    end
     it "signs user in" do
     end
     it "redirects to dashboard" do
@@ -17,6 +23,7 @@ describe UsersController do
   
   describe "GET new" do
     it "assigns user" do
+      get :new
       expect(assigns[:user]).to be_a(User)
     end
   end

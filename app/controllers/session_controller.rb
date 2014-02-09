@@ -3,10 +3,10 @@ class SessionController < ApplicationController
   end
 
   def create
-    user = User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      redirect_to admin_url
+    sportsman = Sportsman.find_by_email(params[:email])
+    if sportsman && sportsman.authenticate(params[:password])
+      session[:sportsman_id] = sportsman.id
+      redirect_to edit_sportsman_path(sportsman)
     else
       render :new, notice: 'Войти не удалось'
     end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SessionController do
-
+  include LoginMacros
   describe "GET 'new'" do
     it "returns http success" do
       get 'new'
@@ -11,17 +11,14 @@ describe SessionController do
 
   describe "POST 'create'" do
     before do
-      @user = User.find_by_name('specific')
-      if !@user
-        @user = FactoryGirl.create(:user, name: 'specific')
-      end
+      @sportsman = create_sportsman
     end
     it "logs in with valid credentials" do
-      post 'create', name: @user.name, password: "pass"
+      post 'create', email: @sportsman.email, password: "pass"
       expect(response).to redirect_to admin_url
     end
     it "does not login with invalid credentials" do
-      post 'create', name: @user.name, password: "wrong"
+      post 'create', email: @sportsman.email, password: "wrong"
       expect(response).to render_template('new') 
     end
   end

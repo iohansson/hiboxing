@@ -17,7 +17,7 @@ describe Admin::CoachesController do
     it "requires login" do
       unset_user_session
       get :index
-      expect(response).to redirect_to(login_url)
+      expect(response).to redirect_to(admin_login_url)
     end
   end
   describe 'GET new' do

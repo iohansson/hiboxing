@@ -6,12 +6,13 @@
       <li><%= link_to 'Расписание' %></li>
       <li><%= link_to 'Фото' %></li>
       <li><%= link_to 'Контакты' %></li>
-      <li><%= link_to 'Мой клуб', dashboard_path %></li>
+      <li>&nbsp;</li>
+      <li class="my-club-link"><%= link_to 'Мой клуб', dashboard_path %><%= image_tag 'me.png' %></li>
     </ul>
   </div>
-  <div class="content cell">
+  <div class="content cell valign-middle">
     <div class="content-inside">
-      <h1><span>Высший</span> бокс</h1>
+      <h1 class="yellow-white"><span>Высший</span> бокс</h1>
       <div class="left half">
         <p class="padded">
           Кикбоксинг - очень зрелищный, и главное, очень эффективный вид
@@ -56,8 +57,33 @@
   </div>
 </div>
 <div class="container table">
-  <div class="schedule cell">
+  <div class="schedule cell pdd-btm pdd-tp">
+    <h1 class="pdd-btm">Расписание</h1>
     <%= render 'shared/schedule' %>
+  </div>
+</div>
+<div class="container table">
+  <div class="header row golden">
+    <div class="cell valign-middle">
+      <h1 class="yellow-white pdd-tp"><span>Мой</span> бокс</h1>
+    </div>
+    <div class="cell"></div>
+  </div>
+  <div class="main row golden">
+    <div class="cell">
+      <%= render 'shared/login_form' %>
+    </div>
+    <div class="cell">
+      <p>
+        Еще не в клубе?<br />
+        <%= link_to 'Регистрируйся', new_sportsman_path %>
+      </p>
+    </div>
+  </div>
+  <div class="footer row">
+    <div class="cell">
+      &nbsp;
+    </div>
   </div>
 </div>
 <div class="container cf">

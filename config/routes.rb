@@ -16,18 +16,20 @@ Hiboxing::Application.routes.draw do
         resources :visits
       end
     end
+    
+    controller :session do
+      get 'login' => :new
+      post 'login' => :create
+      delete 'logout' => :destroy
+    end
   end
   
-  resources :users, only: [:create, :new]
+  resources :sportsmen, only: [:create, :new, :show, :edit]
   
   controller :session do
     get 'login' => :new
     post 'login' => :create
     delete 'logout' => :destroy
-  end
-  
-  controller :dashboard do
-    get 'dashboard' => :index
   end
   
   resources :photos, only: [:index]

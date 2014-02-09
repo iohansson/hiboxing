@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140124212251) do
+ActiveRecord::Schema.define(:version => 20140209100317) do
 
   create_table "coaches", :force => true do |t|
     t.string   "name"
@@ -79,12 +79,11 @@ ActiveRecord::Schema.define(:version => 20140124212251) do
   create_table "sportsmen", :force => true do |t|
     t.string   "name"
     t.string   "phone"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "email"
+    t.string   "password_digest"
   end
-
-  add_index "sportsmen", ["user_id"], :name => "index_sportsmen_on_user_id"
 
   create_table "subs", :force => true do |t|
     t.integer  "sportsman_id"

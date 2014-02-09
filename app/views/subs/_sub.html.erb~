@@ -1,0 +1,5 @@
+<%= content_tag :div, class: 'sub', id: sub.id do %>
+  <%= sub.group_name %>
+  тренировок осталось: <%= sub.trainings_left %>
+  истекает: <%= sub.until_date.strftime('%d %B %Y') %> 
+<% end %>

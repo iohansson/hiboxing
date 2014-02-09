@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::SubsController, focus: true do
+describe Admin::SubsController, sub: true do
   let(:sportsman) { FactoryGirl.create(:sportsman) }
   let(:group) { FactoryGirl.create(:group) }
   context "not logged in" do

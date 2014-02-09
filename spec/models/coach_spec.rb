@@ -9,4 +9,15 @@ describe Coach do
       expect(subject.errors[:name]).not_to be_nil
     end
   end
+  context "Misc" do
+    subject { FactoryGirl.build(:coach, name: "Мохаммед  Али ") }
+    it "returns first name" do
+      expect(subject).to respond_to(:first_name)
+      expect(subject.first_name).to eq('Мохаммед')
+    end
+    it "returns last name" do
+      expect(subject).to respond_to(:last_name)
+      expect(subject.last_name).to eq('Али')
+    end
+  end
 end

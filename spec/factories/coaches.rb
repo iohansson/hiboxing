@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :coach do
     name "MyString"
     description "MyText"
-    image { File.new(Rails.root.join('spec','files','adriana.jpg')) }
+    image { Rack::Test::UploadedFile.new(Rails.root.join('spec','files','adriana.jpg'), 'image/jpeg') }
     
     factory :invalid_coach do
       name nil

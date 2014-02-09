@@ -9,10 +9,19 @@ describe Sub, sub: true do
       expect(sub.until_date.to_i).to eq((Time.now+30.days).to_i) 
     end
   end
-  context "Levels" do
+  context "Gamification" do
     let(:sub) { FactoryGirl.create(:sub) }
-    it "has level" do
-      expect(sub).to respond_to(:level)
+    it "has points" do
+      expect(sub).to respond_to(:points)
+    end
+  end
+  context "Trainings" do
+    let(:group) { FactoryGirl.create(:group) }
+    let(:event_monday) { FactoryGirl.create(:event, group: group, day: 1) }
+    let(:sub) { FactoryGirl.create(:sub, group: group) }
+    it "calculates next training" do
+      event_monday
+      expect(sub.next_training).to eq(event_monday)
     end
   end
 end

@@ -11,4 +11,16 @@ class Group < ActiveRecord::Base
   def price
     super || "Бесплатно"
   end
+  
+  def subs_with_sportsmen
+    subs.includes(:sportsman)
+  end
+  
+  def active_subs_with_sportsmen
+    subs_with_sportsmen.active
+  end
+  
+  def inactive_subs_with_sportsmen
+    subs_with_sportsmen.inactive
+  end
 end

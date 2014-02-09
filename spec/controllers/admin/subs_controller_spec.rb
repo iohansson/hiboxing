@@ -6,7 +6,7 @@ describe Admin::SubsController, sub: true do
   context "not logged in" do
     it "redirects to login path when not logged in" do
       get :index, sportsman_id: sportsman.id
-      expect(response).to redirect_to login_url
+      expect(response).to redirect_to admin_login_url
     end
   end
   

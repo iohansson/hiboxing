@@ -1,0 +1,12 @@
+<div class="login_form">
+  <%= form_tag login_path, method: :post do %>
+    <%= content_tag :p, "Пожалуйста, сделайте все, как надо" %>
+    <%= label_tag :email, 'Почта' %><br />
+    <%= text_field_tag :email %><br /><br />
+    
+    <%= label_tag :password, 'Пароль' %><br />
+    <%= password_field_tag :password %><br /><br />
+    
+    <%= submit_tag 'Войти', class: "submit-orange" %>
+  <% end %>
+</div>

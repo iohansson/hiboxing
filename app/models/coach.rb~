@@ -1,15 +1,14 @@
 class Coach < ActiveRecord::Base
-  attr_accessible :description, :image, :name, :crop_w, :crop_h, :crop_x, :crop_y
-  attr_accessor :crop_w, :crop_h, :crop_x, :crop_y
+  attr_accessible :description, :image, :name
   mount_uploader :image, CoachUploader
   validates :name, presence: true
   validates :image, presence: true
   
-  after_update :crop_image
+  def first_name
+    name
+  end
   
-  protected 
-  
-  def crop_image
-    image.recreate_versions! if crop_x.present?
+  def last_name
+    name
   end
 end

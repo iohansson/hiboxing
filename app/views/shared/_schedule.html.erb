@@ -1,24 +1,7 @@
-<div class="day_names cf">
-  <% %w(понедельник вторник среда четверг пятница суббота воскресенье).each do |day_name| %>
-    <div class="day_name"><%= day_name %></div>
-  <% end %>
-</div>
-<div class="time_names">
-  <% (0..30).each do |time_offset| %>
-    <div class="time_name"><%= time(480+30*time_offset) %></div>
-  <% end %>
-</div>
-<div class="period_divs cf">
-  <% (1..7).each do |day| %>
-    <div class="day">
-      <% t = TimeOfDay.new(8) %>
-      <% (0..30).each do |offset| %>
-        <div class="period" id="period-<%= day %>-<%= t.second_of_day/60+offset*30 %>">
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+<%= schedule do |period| %>
+
+<% end %>
+
 <!-- here we'll render our events, later they will be placed on schedule by js 
 event has to contain data about where to place it on schedule and how long is it-->
 <% @events.each do |event| %>

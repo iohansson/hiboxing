@@ -35,7 +35,7 @@ describe Admin::UsersController do
     it "redirects to log in from #{action} when not authenticated" do
       unset_user_session
       get action.to_sym
-      expect(response).to redirect_to login_url
+      expect(response).to redirect_to admin_login_url
     end
   end
   

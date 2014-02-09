@@ -34,13 +34,22 @@ describe Event do
       end
       expect(Event.current).to eq(Event.where('day = :day AND start <= :time AND stop >= :time',{day: day, time: Time.now.to_time_of_day.to_s}))
     end
-    it "returns next event" do
+    it "returns next event when in same day" do
       day = Time.now.wday
       day = 7 if day == 0
       (8..22).each do |hour|
         FactoryGirl.create(:event, day: day, start: TimeOfDay.new(hour), stop: TimeOfDay.new(hour+1))
       end
       expect(Event.next).to eq(Event.where('day = :day AND start >= :time',{day: day, time: Time.now.to_time_of_day.to_s}).order(:start).first)
+    end
+    it "returns next event when in this week" do
+      Time.now.stubs(:wday).returns(3)
+      day = Time.now.wday
+      day = 7 if day == 0
+      (8..22).each do |hour|
+        FactoryGirl.create(:event, day: day+1, start: TimeOfDay.new(hour), stop: TimeOfDay.new(hour+1))
+      end
+      expect(Event.next).to eq(Event.where('day > :day',{day: day, time: Time.now.to_time_of_day.to_s}).order(:day, :start).first)
     end
   end
 end

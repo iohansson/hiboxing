@@ -1,4 +1,4 @@
-class Admin::SportsmenController < ApplicationController
+class Admin::SportsmenController < Admin::ApplicationController
   def index
     @sportsmen = Sportsman.all
   end

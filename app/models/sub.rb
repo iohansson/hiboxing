@@ -14,6 +14,14 @@ class Sub < ActiveRecord::Base
     sportsman.name
   end
   
+  def group_name
+    group.name
+  end
+  
+  def next_training
+    group.events.next
+  end
+  
   protected
   
   def initial_values

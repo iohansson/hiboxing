@@ -1,0 +1,8 @@
+<%= content_tag :div, class: 'sub', id: sub.id do %>
+  <%= sub.group_name %>
+  тренировок осталось: <%= sub.trainings_left %>
+  истекает: <%= sub.until_date.strftime('%d %B %Y') %>
+  <%= form_tag admin_sportsman_sub_visits_path(sportsman_id: sub.sportsman_id, sub_id: sub.id) do %>
+    <%= submit_tag 'Пришел' %>
+  <% end %> 
+<% end %>

@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+}
+
 ul {
   -webkit-margin-before: 0;
   -webkit-margin-after: 0;
@@ -16,7 +21,10 @@ ul {
 img { border: none; }
 
 h1 {
-  margin: 0 0 10px 0;
+  
+}
+h1.yellow-white span {
+  color: #eaa30b;
 }
 h3 {
   margin: 0;
@@ -34,6 +42,26 @@ p.borders-decorated {
 }
 html, body {
   height: 100%;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 12px 24px;
+}
+
+input.submit-orange {
+  background-image: linear-gradient(#ffbb30, #f3a402);
+  -webkit-box-shadow: 0px 3px 3px -3px rgba(0,0,0,.75);
+  -moz-box-shadow: 0px 3px 3px -3px rgba(0,0,0,.75);
+  box-shadow: 0px 3px 3px -3px rgba(0,0,0,.75);
+  border-radius: 5px;
+  border: 1px solid #ffcc66;
+  color: white;
+  text-shadow: 0px 1px 1px rgba(0,0,0,1);
+  font-size: 16px;
+  padding: 12px 24px;
 }
 
 .container {
@@ -56,6 +84,15 @@ html, body {
       line-height: 2em;
       padding-left: 25%;
       list-style-type: none;
+      
+      a {
+        color: black;
+        text-decoration: none;
+      }
+      li.my-club-link img {
+        padding-left: 10px;
+        height: 12px;
+      }
     }
   }
   
@@ -65,14 +102,9 @@ html, body {
     min-height: 100%;
     
     .content-inside {
-      margin-top: 25%;
       height: 50%;
       width: 100%;
       padding-left: 14.7%;
-      
-      h1 span {
-        color: #eaa30b;
-      }
       
       h3 {
         padding-left: 15px;
@@ -89,15 +121,14 @@ html, body {
   .coaches {
     width: 100%;
     overflow: hidden;
-    overflow-x: hidden;
     
     .coach {
       position: relative;
       height: 100%;
+      overflow: visible !important;
       
       img {
         height: 100%;
-        overflow: hidden;
       }
       .name-block {
         position: absolute;
@@ -131,11 +162,74 @@ html, body {
         background: rgba(0,0,0,.7);
         z-index: 10;
       }
+      .description {
+        display: none;
+        color: white;
+        position: absolute;
+        top: 10%;
+        right: 0;
+        width: 40%;
+        
+        span.huge {
+          font-size: 48px;
+          display: inline-block;
+          position: relative;
+        }
+        span.big {
+          font-size: 18px;
+          display: inline-block;
+          text-align: center;
+        }
+        p {
+          
+        }
+        span.close {
+          position: absolute;
+          top: -24px;
+          right: -36px;
+          background: rgba(255,255,255,.3);
+          width: 48px;
+          height: 48px;
+          border: 1px solid #fff;
+          border-radius: 50%;
+          font-size: 24px;
+          text-align: center;
+          line-height: 48px;
+          cursor: pointer;
+        }
+      }
     }
     .coach:nth-child(1) .name-block {
       left: 0;
       background: none;
     }
+  }
+  
+  .header {
+    background: rgba(255,255,255,.1);
+    height: 20.83%;
+    min-height: 20.83%;
+    vertical-align: middle;
+  }
+  .main {
+    height: 65.625%;
+    min-height: 65.625%;
+    
+    a {
+      color: white;
+    }
+  }
+  .main > div:first-child {
+    background: rgba(255,255,255,.3);
+  }
+    
+  .main > div:last-child {
+    background: rgba(255,255,255,.2);
+  }
+  .footer {
+    background: rgba(255,255,255,.1);
+    height: 13.545%;
+    min-height: 13.545%;
   }
 }
 
@@ -160,6 +254,12 @@ html, body {
   top: 0;
   left: 0;
   z-index: 10;
+  font-size: 12px;
+  background: rgba(0,0,0,.75);
+  width: 100%;
+  -webkit-box-shadow: 0px 0px 1px 1px rgba(255,255,255,.75);
+  -moz-box-shadow: 0px 0px 1px 1px rgba(255,255,255,.75);
+  box-shadow: 0px 0px 1px 1px rgba(255,255,255,.75);
   
   .event-helper {
     position: absolute;
@@ -175,51 +275,39 @@ html, body {
   text-align: center;
   
   h1 {
-    margin: 1em 0 0 0;
+    display: inline-block;
+  }
+}
+
+table.schedule {
+  width: 100%;
+  text-align: center;
+  
+  th, td {
+    vertical-align: middle;
+    height: 30px;
   }
   
-  div {
-    margin: 0;
+  tr {
+    background: #37383a;
   }
   
-  .day_names {
-    width: 100%;
-    padding-left: 12.5%;
-    
-    .day_name {
-      float:left;
-      width: 14.2857%;
-    }
+  tr:nth-child(even) {
+    background: #616161;
   }
-  .time_names {
-    float: left;
-    width: 12.5%;
-    
-    .time_name {
-      height: 30px;
-      width: 100%;
-    }
+  
+  .time-header, th:first-child {
+    background: #2d2e30;
   }
-  .period_divs {
-    margin: 0;
-    width: 87.5%;
-    
-    .day {
-      float: left;
-      border-right: 1px solid rgba(0,0,0,.5);
-      width: 13.2857%;
-      
-      .period {
-        width: 100%;
-        height: 30px;
-        background: #ccc;
-        position: relative;
-      }
-      
-      div.period:nth-child(even) {
-        background: #333;
-      }
-    }
+  
+  td {
+    padding: 0;
+    position: relative;
+  }
+  
+  th {
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 }
 
@@ -235,16 +323,50 @@ html, body {
 .quarter {
   width: 25%;
 }
+.golden {
+  > div:first-child {
+    width: 58.34%;
+    padding-left: 17.25%;
+    float: left;
+  }
+  > div:last-child {
+    width: 41.65%;
+    float: left;
+  }
+}
 .table {
-  display: table;
+  display: table; 
+  table-layout: auto;
+  border-collapse: collapse;
 }
 .cell {
   display: table-cell;
 }
+.row {
+  display: table-row;
+}
+  .row > .cell {
+    height: 100%;
+    min-height: 100%;
+  }
 .valign-middle {
   vertical-align: middle;
 }
-
+.pdd-btm {
+  padding-bottom: 50px;
+}
+.pdd-tp {
+  padding-top: 50px;
+}
+.pdd-lft {
+  padding-left: 25px;
+}
+.nm {
+  margin: 0;
+}
+.i-b {
+  display: inline-block;
+}
 .cf:before, .cf:after {
   content: " ";
   display: table;

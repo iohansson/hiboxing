@@ -7,6 +7,7 @@ class Group < ActiveRecord::Base
   
   has_many :subs
   has_many :sportsmen, through: :subs
+  has_many :events
   
   def price
     super || "Бесплатно"

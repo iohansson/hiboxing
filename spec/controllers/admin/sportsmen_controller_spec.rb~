@@ -10,7 +10,11 @@ describe Admin::SportsmenController do
     create_user_and_sign_in(true) #admin
     sportsman #lazy-create
   end
-
+  
+  it "requires login" do
+    require_login
+  end
+  
   it "index action should render index template" do
     get :index
     response.should render_template(:index)
@@ -35,7 +39,7 @@ describe Admin::SportsmenController do
   it "create action should redirect when model is valid" do
     Sportsman.any_instance.stubs(:valid?).returns(true)
     post :create
-    response.should redirect_to(admin_sportsman_url(assigns[:sportsman]))
+    response.should redirect_to(admin_sportsmen_url)
   end
 
   it "edit action should render edit template" do
@@ -52,7 +56,7 @@ describe Admin::SportsmenController do
   it "update action should redirect when model is valid" do
     Sportsman.any_instance.stubs(:valid?).returns(true)
     put :update, :id => sportsman
-    response.should redirect_to(admin_sportsman_url(assigns[:sportsman]))
+    response.should redirect_to(admin_sportsmen_url)
   end
 
   it "destroy action should destroy model and redirect to index action" do

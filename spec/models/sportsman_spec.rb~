@@ -7,13 +7,26 @@ describe Sportsman do
     it "should be valid" do
       expect(sportsman).to be_valid
     end
+    it "must have a name" do
+      sportsman.name = nil
+      expect(sportsman).not_to be_valid
+      expect(sportsman.errors[:name]).not_to be_nil
+    end
+    it "must have email" do
+      sportsman.email = nil
+      expect(sportsman).not_to be_valid
+      expect(sportsman.errors[:email]).not_to be_nil
+    end
   end
   context "Association" do
-    it "belongs to user" do
-      expect(subject).to respond_to :user
-    end
     it "has many subs" do
       expect(subject).to respond_to :subs
+    end
+    it "has active subs" do
+      expect(subject).to respond_to :active_subs
+    end
+    it "has inactive subs" do
+      expect(subject).to respond_to :inactive_subs
     end
   end
   context "Scoping" do
@@ -24,7 +37,7 @@ describe Sportsman do
       end
       @inactive = FactoryGirl.create_list(:sportsman, 5).each do |s| 
         s.subs.create(group_id: group.id) 
-        s.subs.update_attributes({ trainings_left: 0 })
+        s.subs.last.update_attributes({ trainings_left: 0 })
       end
     end
     it "retrieves active" do
@@ -32,6 +45,20 @@ describe Sportsman do
     end
     it "retrieves inactive" do
       expect(Sportsman.inactive).to eq(@inactive)
+    end
+  end
+  context "Subs" do
+    let(:sportsman) { FactoryGirl.create(:sportsman) }
+    let(:group) { FactoryGirl.create(:group) }
+    let(:sub) { FactoryGirl.create(:sub, sportsman: sportsman, group: group) }
+    let(:sub_expired) { FactoryGirl.create(:sub_expired, sportsman: sportsman) }
+    it "retrieves active subs" do
+      sub
+      expect(sportsman.active_subs).to eq([sub])
+    end
+    it "retrieves inactive subs" do
+      sub_expired
+      expect(sportsman.inactive_subs).to eq([sub_expired])
     end
   end
 end
